@@ -27,7 +27,7 @@
    - ajouter `GEMINI_API_KEY` dans les variables d'environnement.
 3. **CSP de `vercel.json`** : elle n'est appliquée qu'une fois le site déployé. Après le déploiement, vérifier la console du site : polices, icônes Bootstrap, carte OpenStreetMap et chatbot.
 4. **Validation W3C officielle** (validator.w3.org) : pas lancée. En revanche, `npm run validate` (html-validate 8.24.1, plus strict sur l'accessibilité) passe **sans erreur** sur les 4 pages.
-5. **Dépôt GitHub** : pas créé. Ce choix et le push appartiennent au propriétaire.
+5. ~~Dépôt GitHub~~ **Fait le 2026-10-30** à la demande du propriétaire : dépôt public https://github.com/Max-De-Jesus/clinique-veterinaire-des-pins (branche `main`). Pour Vercel : importer ce dépôt.
 
 ## Prochaine action
 Obtenir du propriétaire une clé Gemini, puis lancer le déploiement Vercel (points 1 et 2 ci-dessus). Ensuite, préparer la présentation orale de 7 minutes : choix de l'entreprise et décisions de conception.
