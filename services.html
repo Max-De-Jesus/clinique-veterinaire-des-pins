@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Encodage, affichage mobile et référencement -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services &amp; tarifs | Clinique Vétérinaire des Pins</title>
+  <meta name="description" content="Consultations, vaccins, chirurgie, dentisterie, imagerie, urgences 24 h/24, NAC, équidés et rééducation en forêt : tous les services de la Clinique Vétérinaire des Pins.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Polices Google : Fraunces (titres) et Nunito Sans (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Nunito+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 et Bootstrap Icons (CDN avec contrôle d'intégrité) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+
+  <!-- Styles personnalisés de la clinique -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <!-- ===== En-tête : bandeau d'urgence + navigation responsive ===== -->
+  <header class="sticky-top">
+    <div class="bandeau-urgence py-2">
+      <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span><i class="bi bi-clock-history me-1" aria-hidden="true"></i> Lun–Ven 8 h–19 h · Sam 9 h–17 h</span>
+        <span><i class="bi bi-telephone-fill me-1" aria-hidden="true"></i> Urgences 24 h/24 : <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a></span>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-pins" aria-label="Navigation principale">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <svg class="logo-pin" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#1f4d3a"/>
+            <path d="M24 8 L33 21 H28 L35 31 H27 V39 H21 V31 H13 L20 21 H15 Z" fill="#d8e6dc"/>
+            <circle cx="36" cy="36" r="5" fill="#e0893f"/>
+          </svg>
+          <span>Clinique des Pins<small>Vétérinaires</small></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+            <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="services.html">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn btn-ambre" href="contact.html#formulaire">Prendre rendez-vous</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <!-- ===== Bandeau de page ===== -->
+    <section class="bandeau-page bandeau-services" aria-labelledby="titre-page">
+      <div class="container">
+        <nav aria-label="Fil d'Ariane">
+          <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Services</li>
+          </ol>
+        </nav>
+        <h1 id="titre-page">Nos services &amp; tarifs</h1>
+        <p class="lead mb-0">Neuf pôles de soins, un devis systématique, aucune mauvaise surprise.</p>
+      </div>
+    </section>
+
+    <!-- ===== Catalogue des services en cartes Bootstrap ===== -->
+    <section class="section" id="soins" aria-labelledby="titre-catalogue">
+      <div class="container">
+        <div class="titre-section apparition">
+          <span class="sur-titre">Catalogue</span>
+          <h2 id="titre-catalogue">Que pouvons-nous faire pour votre animal ?</h2>
+          <!-- Filtres : gérés par script.js (data-filtre ↔ data-categorie) -->
+          <div class="filtres mt-4" role="group" aria-label="Filtrer les services">
+            <button class="btn active" type="button" data-filtre="tous" aria-pressed="true">Tous</button>
+            <button class="btn" type="button" data-filtre="soins" aria-pressed="false">Soins courants</button>
+            <button class="btn" type="button" data-filtre="specialites" aria-pressed="false">Spécialités</button>
+            <button class="btn" type="button" data-filtre="bien-etre" aria-pressed="false">Bien-être</button>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Carte 1 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="soins">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/examen-teckel.jpg" alt="Vétérinaire examinant un teckel" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-clipboard2-pulse" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Soins courants</span>
+                <h3 class="card-title mt-2">Consultations</h3>
+                <p class="card-text texte-doux">Examen complet de 30 minutes, conseils nutrition et comportement, suivi des maladies chroniques.</p>
+                <p class="prix mb-0">À partir de 45 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 2 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="soins">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/vaccin-chien.jpg" alt="Injection d'un vaccin à un petit chien" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-shield-plus" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Soins courants</span>
+                <h3 class="card-title mt-2">Vaccins &amp; prévention</h3>
+                <p class="card-text texte-doux">Primo-vaccination, rappels, antiparasitaires, identification par puce et passeport européen.</p>
+                <p class="prix mb-0">Rappel vaccinal : 62 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 3 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="specialites">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/bloc-operatoire.jpg" alt="Bloc opératoire de la clinique" width="1200" height="800" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-heart-pulse" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Spécialités</span>
+                <h3 class="card-title mt-2">Chirurgie</h3>
+                <p class="card-text texte-doux">Stérilisation, tissus mous, orthopédie (ligaments croisés, fractures) sous anesthésie monitorée.</p>
+                <p class="prix mb-0">Sur devis</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 4 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="specialites">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/dents-teckel.jpg" alt="Vétérinaire contrôlant les dents d'un teckel" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-emoji-smile" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Spécialités</span>
+                <h3 class="card-title mt-2">Dentisterie</h3>
+                <p class="card-text texte-doux">Détartrage aux ultrasons, polissage, extractions et radiographies dentaires.</p>
+                <p class="prix mb-0">Détartrage : à partir de 140 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 5 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="specialites">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/laboratoire.jpg" alt="Laboratoire équipé d'un microscope" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-activity" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Spécialités</span>
+                <h3 class="card-title mt-2">Imagerie &amp; laboratoire</h3>
+                <p class="card-text texte-doux">Radiographie numérique, échographie, analyses sanguines et urinaires avec résultats en 30 min.</p>
+                <p class="prix mb-0">Bilan sanguin : 75 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 6 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="soins">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/chien-masque.jpg" alt="Soignant masqué rassurant un corgi" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-alarm" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Soins courants</span>
+                <h3 class="card-title mt-2">Urgences 24 h/24</h3>
+                <p class="card-text texte-doux">Vétérinaire de garde chaque nuit, week-ends et jours fériés. Hospitalisation surveillée.</p>
+                <p class="prix mb-0">Majoration de nuit : 60 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 7 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="specialites">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/perruche.jpg" alt="Perruche verte sur une branche" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-feather" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Spécialités</span>
+                <h3 class="card-title mt-2">NAC &amp; oiseaux</h3>
+                <p class="card-text texte-doux">Lapins, cochons d'Inde, furets, reptiles et oiseaux : soins, griffes, bec et stérilisation.</p>
+                <p class="prix mb-0">Consultation NAC : 50 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 8 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="specialites">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/cheval.jpg" alt="Cheval brun dans un pré" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-truck" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Spécialités</span>
+                <h3 class="card-title mt-2">Équidés à domicile</h3>
+                <p class="card-text texte-doux">Visites en écurie dans un rayon de 40 km : vaccins, dentisterie équine, boiteries.</p>
+                <p class="prix mb-0">Déplacement : 35 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 9 : la signature de la clinique -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="bien-etre" id="foret">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/chien-bois.jpg" alt="Chien courant dans une forêt de pins" width="1200" height="800" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-tree" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Bien-être</span>
+                <h3 class="card-title mt-2">Le Sentier des Pins</h3>
+                <p class="card-text texte-doux">Rééducation encadrée dans notre pinède de 2 ha : marche sur sable, obstacles doux, suivi par le chirurgien.</p>
+                <p class="prix mb-0">Séance de 45 min : 38 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 10 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="bien-etre">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/chien-bandana.jpg" alt="Bichon tout propre avec un bandana bleu" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-scissors" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Bien-être</span>
+                <h3 class="card-title mt-2">Toilettage médical</h3>
+                <p class="card-text texte-doux">Bains dermatologiques, tonte sous sédation légère, coupe de griffes, soins des oreilles.</p>
+                <p class="prix mb-0">À partir de 30 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 11 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="bien-etre">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/chiot-dort.jpg" alt="Chiot golden endormi sur un parquet" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-moon-stars" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Bien-être</span>
+                <h3 class="card-title mt-2">Comportement &amp; chiots</h3>
+                <p class="card-text texte-doux">Consultation comportementale, « école des chiots » le samedi, gestion de l'anxiété.</p>
+                <p class="prix mb-0">Atelier chiots : 20 €</p>
+              </div>
+            </article>
+          </div>
+          <!-- Carte 12 -->
+          <div class="col-md-6 col-lg-4 apparition" data-categorie="soins">
+            <article class="card carte-service">
+              <div class="cadre-image">
+                <img src="assets/img/examen-chat.jpg" alt="Chat blanc examiné avec douceur" width="1000" height="667" loading="lazy">
+                <span class="pastille-icone"><i class="bi bi-house-heart" aria-hidden="true"></i></span>
+              </div>
+              <div class="card-body">
+                <span class="etiquette">Soins courants</span>
+                <h3 class="card-title mt-2">Espace Cat Friendly</h3>
+                <p class="card-text texte-doux">Entrée, salle d'attente et consultation dédiées aux chats, loin des aboiements.</p>
+                <p class="prix mb-0">Bilan félin senior : 89 €</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Déroulement d'une visite ===== -->
+    <section class="section section-sable" aria-labelledby="titre-deroulement">
+      <div class="container">
+        <div class="row g-4 g-lg-5 align-items-center">
+          <div class="col-lg-5 apparition">
+            <img class="image-arrondie" src="assets/img/dents-teckel-2.jpg" alt="Examen bucco-dentaire d'un teckel" width="1000" height="667" loading="lazy">
+          </div>
+          <div class="col-lg-7 apparition">
+            <span class="sur-titre">Comment ça se passe ?</span>
+            <h2 id="titre-deroulement">Votre visite en 4 étapes</h2>
+            <div class="row g-4 mt-1">
+              <div class="col-sm-6">
+                <h3 class="h5"><i class="bi bi-1-circle-fill text-success me-2" aria-hidden="true"></i>Rendez-vous</h3>
+                <p class="texte-doux mb-0">En ligne, par téléphone ou via notre assistante Sylva.</p>
+              </div>
+              <div class="col-sm-6">
+                <h3 class="h5"><i class="bi bi-2-circle-fill text-success me-2" aria-hidden="true"></i>Accueil</h3>
+                <p class="texte-doux mb-0">Salle d'attente séparée chiens / chats et friandises.</p>
+              </div>
+              <div class="col-sm-6">
+                <h3 class="h5"><i class="bi bi-3-circle-fill text-success me-2" aria-hidden="true"></i>Examen &amp; devis</h3>
+                <p class="texte-doux mb-0">Diagnostic expliqué, devis écrit avant tout acte.</p>
+              </div>
+              <div class="col-sm-6">
+                <h3 class="h5"><i class="bi bi-4-circle-fill text-success me-2" aria-hidden="true"></i>Suivi</h3>
+                <p class="texte-doux mb-0">Compte-rendu par e-mail et rappel des prochains soins.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Grille tarifaire indicative ===== -->
+    <section class="section" aria-labelledby="titre-tarifs">
+      <div class="container">
+        <div class="titre-section apparition">
+          <span class="sur-titre">Transparence</span>
+          <h2 id="titre-tarifs">Tarifs indicatifs</h2>
+          <p class="texte-doux">Prix TTC 2026, hors médicaments. Un devis précis vous est remis avant chaque intervention.</p>
+        </div>
+        <div class="table-responsive apparition">
+          <table class="table table-hover align-middle">
+            <caption class="texte-doux">Tarifs donnés à titre indicatif (entreprise fictive).</caption>
+            <thead class="table-success">
+              <tr>
+                <th scope="col">Acte</th>
+                <th scope="col">Chien</th>
+                <th scope="col">Chat</th>
+                <th scope="col">NAC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Consultation</th><td>45 €</td><td>45 €</td><td>50 €</td></tr>
+              <tr><th scope="row">Vaccination annuelle</th><td>62 €</td><td>58 €</td><td>45 €</td></tr>
+              <tr><th scope="row">Identification par puce</th><td>65 €</td><td>65 €</td><td>55 €</td></tr>
+              <tr><th scope="row">Stérilisation femelle</th><td>dès 280 €</td><td>160 €</td><td>dès 110 €</td></tr>
+              <tr><th scope="row">Détartrage</th><td>dès 140 €</td><td>dès 120 €</td><td>—</td></tr>
+              <tr><th scope="row">Séance Sentier des Pins</th><td>38 €</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Questions fréquentes (accordéon Bootstrap) ===== -->
+    <section class="section section-sauge" aria-labelledby="titre-faq">
+      <div class="container">
+        <div class="row g-4 g-lg-5 align-items-center">
+          <div class="col-lg-6 apparition">
+            <span class="sur-titre">FAQ</span>
+            <h2 id="titre-faq" class="mb-4">Questions fréquentes</h2>
+            <div class="accordion" id="faq">
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">Que faire en cas d'urgence la nuit ?</button>
+                </h3>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                  <div class="accordion-body">Appelez le 05 58 00 12 34 : le vétérinaire de garde vous répond et vous accueille à la clinique.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">Mon animal doit-il être à jeun ?</button>
+                </h3>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+                  <div class="accordion-body">Oui, 12 heures avant une anesthésie ou une prise de sang. L'eau reste autorisée.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">Acceptez-vous les assurances animales ?</button>
+                </h3>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+                  <div class="accordion-body">Oui, nous remplissons les feuilles de soins de toutes les mutuelles animales.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 apparition">
+            <div class="duo-images">
+              <img class="image-arrondie" src="assets/img/jeu-exterieur.jpg" alt="Une femme joue avec son chien en plein air" width="1000" height="667" loading="lazy">
+              <img class="image-secondaire" src="assets/img/lapin-gris.jpg" alt="Lapin gris" width="1000" height="667" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Appel à l'action ===== -->
+    <section class="appel-action" aria-labelledby="titre-cta">
+      <div class="container text-center apparition">
+        <h2 id="titre-cta" class="display-6">Un doute sur le bon service ?</h2>
+        <p class="lead mb-4">Sylva, notre assistante, vous oriente en quelques secondes.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <button class="btn btn-ambre" type="button" data-ouvrir-chatbot>Poser une question</button>
+          <a class="btn btn-contour-clair" href="contact.html#formulaire">Prendre rendez-vous</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="pied-page">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h2 class="titre-serif">Clinique Vétérinaire des Pins</h2>
+          <p>Soigner avec science, accueillir avec cœur. Chiens, chats, NAC et équidés depuis 2009.</p>
+          <div class="reseaux">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Navigation</h3>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3>Nous trouver</h3>
+          <address class="mb-0">
+            12 allée des Pins<br>40200 Mimizan, France<br>
+            <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a><br>
+            <a href="mailto:contact@clinique-des-pins.fr">contact@clinique-des-pins.fr</a>
+          </address>
+        </div>
+        <div class="col-lg-3">
+          <h3>Sur Instagram</h3>
+          <div class="row g-2 mini-galerie">
+            <div class="col-4"><img src="assets/img/chiot-dort.jpg" alt="Chiot endormi" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chat-longpoil.jpg" alt="Chaton qui joue" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chien-bandana.jpg" alt="Bichon avec un bandana" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/toilettage-shihtzu.jpg" alt="Petit chien blanc qui court" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chiot-tulipe.jpg" alt="Chiot avec une fleur dans la gueule" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/pins-ciel.jpg" alt="Cimes des pins" width="120" height="120" loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+      <div class="bas d-flex flex-wrap justify-content-between gap-2">
+        <span>© 2026 Clinique Vétérinaire des Pins — entreprise fictive, projet pédagogique.</span>
+        <span>Photos : <a href="https://unsplash.com/license">Unsplash</a> (libres de droits)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bouton « retour en haut » -->
+  <button class="retour-haut" type="button" aria-label="Revenir en haut de la page"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+
+  <!-- Scripts : Bootstrap puis script du site (chatbot inclus) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

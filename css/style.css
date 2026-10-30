@@ -1,0 +1,1214 @@
+/* ==========================================================================
+   Clinique Vétérinaire des Pins — feuille de style personnalisée
+   Complète Bootstrap 5 : identité visuelle, animations, responsive.
+   Sommaire :
+     1. Variables (couleurs, typographie)
+     2. Base et typographie
+     3. Barre de navigation
+     4. Carrousel d'accueil et bandeaux de page
+     5. Sections, cartes et effets au survol
+     6. Galerie photo
+     7. Équipe, valeurs, chronologie
+     8. Témoignages, chiffres clés, appel à l'action
+     9. Formulaire de contact
+    10. Pied de page
+    11. Chatbot (bulle flottante)
+    12. Apparition au défilement
+    13. Media queries (responsive)
+   ========================================================================== */
+
+/* 1. Variables ------------------------------------------------------------ */
+:root {
+  --pin-900: #12301f;       /* vert pin profond : titres, pied de page */
+  --pin-700: #1f4d3a;       /* vert principal de la marque */
+  --pin-500: #2f7a57;       /* vert d'action (liens, survols) */
+  --sauge-200: #d8e6dc;     /* vert sauge clair : fonds doux */
+  --sable-100: #f6f1e7;     /* beige sable des Landes : fond de section */
+  --ambre-500: #e0893f;     /* accent chaleureux : boutons d'appel */
+  --ambre-600: #c8722b;
+  --encre: #22302a;         /* couleur du texte courant */
+  --gris-texte: #5d6b63;
+  --blanc: #ffffff;
+  --rayon: 1rem;            /* arrondi commun des cartes */
+  --ombre: 0 10px 30px rgba(18, 48, 31, 0.12);
+  --ombre-forte: 0 18px 40px rgba(18, 48, 31, 0.22);
+  --police-titre: "Fraunces", Georgia, serif;
+  --police-texte: "Nunito Sans", "Segoe UI", Arial, sans-serif;
+  --transition: 0.35s ease;
+}
+
+/* 2. Base et typographie -------------------------------------------------- */
+body {
+  font-family: var(--police-texte);
+  color: var(--encre);
+  background-color: var(--blanc);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5,
+.titre-serif {
+  font-family: var(--police-titre);
+  color: var(--pin-900);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--pin-500);
+}
+
+a:hover {
+  color: var(--pin-700);
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Lien d'évitement pour la navigation au clavier */
+.lien-evitement {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  background: var(--pin-900);
+  color: var(--blanc);
+  border-radius: 0.5rem;
+}
+
+.lien-evitement:focus {
+  top: 1rem;
+  color: var(--blanc);
+}
+
+/* Petit sur-titre au-dessus des titres de section */
+.sur-titre {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: var(--ambre-600);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.texte-doux {
+  color: var(--gris-texte);
+}
+
+/* Boutons aux couleurs de la clinique */
+.btn-ambre {
+  background-color: var(--ambre-500);
+  border-color: var(--ambre-500);
+  color: var(--blanc);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.75rem 1.6rem;
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+.btn-ambre:hover,
+.btn-ambre:focus {
+  background-color: var(--ambre-600);
+  border-color: var(--ambre-600);
+  color: var(--blanc);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(224, 137, 63, 0.35);
+}
+
+.btn-contour-clair {
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  color: var(--blanc);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.btn-contour-clair:hover,
+.btn-contour-clair:focus {
+  background-color: var(--blanc);
+  color: var(--pin-900);
+}
+
+.btn-pin {
+  background-color: var(--pin-700);
+  border-color: var(--pin-700);
+  color: var(--blanc);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.7rem 1.5rem;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.btn-pin:hover,
+.btn-pin:focus {
+  background-color: var(--pin-900);
+  color: var(--blanc);
+  transform: translateY(-2px);
+}
+
+/* 3. Barre de navigation -------------------------------------------------- */
+.bandeau-urgence {
+  background-color: var(--pin-900);
+  color: var(--sauge-200);
+  font-size: 0.875rem;
+}
+
+.bandeau-urgence a {
+  color: var(--blanc);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navbar-pins {
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  transition: box-shadow var(--transition), padding var(--transition);
+}
+
+/* Classe ajoutée par script.js quand on fait défiler la page */
+.navbar-pins.navbar-reduite {
+  box-shadow: 0 6px 20px rgba(18, 48, 31, 0.1);
+}
+
+.navbar-pins .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--police-titre);
+  font-weight: 700;
+  color: var(--pin-900);
+  line-height: 1.1;
+}
+
+.navbar-pins .navbar-brand small {
+  display: block;
+  font-family: var(--police-texte);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pin-500);
+}
+
+.logo-pin {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.navbar-pins .nav-link {
+  position: relative;
+  margin: 0 0.35rem;
+  font-weight: 700;
+  color: var(--encre);
+}
+
+/* Soulignement animé au survol des liens du menu */
+.navbar-pins .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.2rem;
+  height: 2px;
+  background-color: var(--ambre-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.navbar-pins .nav-link:hover::after,
+.navbar-pins .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.navbar-pins .nav-link.active {
+  color: var(--pin-700);
+}
+
+/* 4. Carrousel d'accueil et bandeaux de page ------------------------------ */
+.carrousel-accueil .carousel-item {
+  height: 88vh;
+  min-height: 520px;
+}
+
+.carrousel-accueil .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* léger zoom lent pour donner de la vie aux photos */
+  animation: zoomLent 14s ease-in-out infinite alternate;
+}
+
+/* Voile dégradé pour garantir la lisibilité du texte sur les photos */
+.carrousel-accueil .carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(18, 48, 31, 0.85) 0%, rgba(18, 48, 31, 0.45) 55%, rgba(18, 48, 31, 0.1) 100%);
+}
+
+.carrousel-accueil .carousel-caption {
+  z-index: 2;
+  top: 50%;
+  bottom: auto;
+  left: 8%;
+  right: auto;
+  max-width: 640px;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+.carrousel-accueil .carousel-caption h1,
+.carrousel-accueil .carousel-caption h2 {
+  color: var(--blanc);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.08;
+}
+
+.carrousel-accueil .carousel-caption p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.carrousel-accueil .slogan {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--blanc);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.carrousel-accueil .carousel-indicators [data-bs-target] {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+@keyframes zoomLent {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+/* Bandeau en haut des pages intérieures (photo + titre) */
+.bandeau-page {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 46vh;
+  padding: 7rem 0 3.5rem;
+  background-size: cover;
+  background-position: center;
+  color: var(--blanc);
+  isolation: isolate;
+}
+
+.bandeau-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, rgba(18, 48, 31, 0.9) 0%, rgba(18, 48, 31, 0.35) 100%);
+}
+
+.bandeau-page h1 {
+  color: var(--blanc);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.bandeau-page .breadcrumb-item,
+.bandeau-page .breadcrumb-item a,
+.bandeau-page .breadcrumb-item::before {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Une photo différente par page intérieure */
+.bandeau-apropos {
+  background-image: url("../assets/img/pins-brume.jpg");
+}
+
+.bandeau-services {
+  background-image: url("../assets/img/bloc-operatoire.jpg");
+}
+
+.bandeau-contact {
+  background-image: url("../assets/img/chien-foret.jpg");
+}
+
+/* 5. Sections, cartes et effets au survol --------------------------------- */
+.section {
+  padding: 6rem 0;
+}
+
+.section-sable {
+  background-color: var(--sable-100);
+}
+
+.section-sauge {
+  background-color: var(--sauge-200);
+}
+
+.titre-section {
+  max-width: 720px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.titre-section h2 {
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+}
+
+/* Cartes de services (Bootstrap .card enrichies) */
+.carte-service {
+  height: 100%;
+  border: none;
+  border-radius: var(--rayon);
+  overflow: hidden;
+  box-shadow: var(--ombre);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.carte-service:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--ombre-forte);
+}
+
+.carte-service .cadre-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.carte-service .cadre-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.carte-service:hover .cadre-image img {
+  transform: scale(1.08);
+}
+
+/* Pastille d'icône posée à cheval sur la photo et le texte */
+.carte-service .pastille-icone {
+  position: absolute;
+  left: 1.25rem;
+  bottom: -1.4rem;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--ambre-500);
+  color: var(--blanc);
+  font-size: 1.3rem;
+  box-shadow: 0 6px 14px rgba(224, 137, 63, 0.4);
+  z-index: 2;
+}
+
+.carte-service .card-body {
+  padding: 2.1rem 1.5rem 1.6rem;
+}
+
+.carte-service .card-title {
+  font-size: 1.3rem;
+}
+
+.carte-service .prix {
+  font-weight: 800;
+  color: var(--pin-700);
+}
+
+.etiquette {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background-color: var(--sauge-200);
+  color: var(--pin-700);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Boutons de filtre de la page Services */
+.filtres .btn {
+  margin: 0.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 2px solid var(--pin-700);
+  color: var(--pin-700);
+}
+
+.filtres .btn.active,
+.filtres .btn:hover {
+  background-color: var(--pin-700);
+  color: var(--blanc);
+}
+
+/* Bloc image + texte (deux colonnes) */
+.image-arrondie {
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+  object-fit: cover;
+  width: 100%;
+}
+
+.duo-images {
+  position: relative;
+  padding-bottom: 3rem;
+}
+
+.duo-images .image-secondaire {
+  position: absolute;
+  right: -1rem;
+  bottom: 0;
+  width: 48%;
+  border: 6px solid var(--blanc);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre-forte);
+}
+
+.liste-coches {
+  list-style: none;
+  padding-left: 0;
+}
+
+.liste-coches li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.7rem;
+}
+
+.liste-coches li::before {
+  content: "\F26E"; /* icône « check-circle-fill » de Bootstrap Icons */
+  font-family: "bootstrap-icons";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--pin-500);
+}
+
+/* 6. Galerie photo -------------------------------------------------------- */
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 1rem;
+}
+
+.galerie figure {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--rayon);
+  cursor: zoom-in;
+}
+
+/* Quelques vignettes plus grandes pour un effet « mosaïque » */
+.galerie .grande {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.galerie .large {
+  grid-column: span 2;
+}
+
+.galerie img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.galerie figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.5rem 1rem 0.8rem;
+  background: linear-gradient(0deg, rgba(18, 48, 31, 0.85), transparent);
+  color: var(--blanc);
+  font-weight: 700;
+  transform: translateY(100%);
+  transition: transform var(--transition);
+}
+
+.galerie figure:hover img,
+.galerie figure:focus-within img {
+  transform: scale(1.07);
+  filter: saturate(1.15);
+}
+
+.galerie figure:hover figcaption,
+.galerie figure:focus-within figcaption {
+  transform: translateY(0);
+}
+
+/* Visionneuse plein écran de la galerie (ouverte par script.js) */
+.visionneuse .modal-content {
+  background: transparent;
+  border: none;
+}
+
+.visionneuse img {
+  max-height: 82vh;
+  width: 100%;
+  object-fit: contain;
+  border-radius: var(--rayon);
+}
+
+/* 7. Équipe, valeurs, chronologie ----------------------------------------- */
+.carte-equipe {
+  text-align: center;
+  border: none;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  box-shadow: var(--ombre);
+  overflow: hidden;
+  transition: transform var(--transition);
+  height: 100%;
+}
+
+.carte-equipe:hover {
+  transform: translateY(-6px);
+}
+
+.carte-equipe .photo {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.carte-equipe .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.6s ease;
+}
+
+.carte-equipe:hover .photo img {
+  transform: scale(1.06);
+}
+
+.carte-equipe .role {
+  color: var(--ambre-600);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.carte-valeur {
+  position: relative;
+  height: 100%;
+  min-height: 320px;
+  border-radius: var(--rayon);
+  overflow: hidden;
+  color: var(--blanc);
+  display: flex;
+  align-items: flex-end;
+}
+
+.carte-valeur img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.carte-valeur::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(18, 48, 31, 0.92) 10%, rgba(18, 48, 31, 0.15) 70%);
+}
+
+.carte-valeur .contenu {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+}
+
+.carte-valeur h3 {
+  color: var(--blanc);
+  font-size: 1.35rem;
+}
+
+.carte-valeur:hover img {
+  transform: scale(1.08);
+}
+
+.chronologie {
+  position: relative;
+  list-style: none;
+  padding-left: 2rem;
+  border-left: 3px solid var(--sauge-200);
+}
+
+.chronologie li {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.chronologie li::before {
+  content: "";
+  position: absolute;
+  left: -2.65rem;
+  top: 0.35rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background-color: var(--ambre-500);
+  border: 3px solid var(--blanc);
+  box-shadow: 0 0 0 3px var(--sauge-200);
+}
+
+.chronologie .annee {
+  font-family: var(--police-titre);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pin-700);
+}
+
+/* 8. Témoignages, chiffres clés, appel à l'action ------------------------- */
+.chiffre {
+  font-family: var(--police-titre);
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--blanc);
+  line-height: 1;
+}
+
+.bande-chiffres {
+  background: linear-gradient(rgba(18, 48, 31, 0.86), rgba(18, 48, 31, 0.86)), url("../assets/img/pins-ciel.jpg") center / cover;
+  color: var(--sauge-200);
+  padding: 4.5rem 0;
+}
+
+.carte-temoignage {
+  height: 100%;
+  padding: 2rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  box-shadow: var(--ombre);
+  transition: transform var(--transition);
+}
+
+.carte-temoignage:hover {
+  transform: translateY(-5px);
+}
+
+.carte-temoignage img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.etoiles {
+  color: var(--ambre-500);
+}
+
+.appel-action {
+  position: relative;
+  padding: 6rem 0;
+  background: linear-gradient(90deg, rgba(18, 48, 31, 0.92), rgba(31, 77, 58, 0.6)), url("../assets/img/hero-pins.jpg") center / cover;
+  color: var(--blanc);
+}
+
+.appel-action h2 {
+  color: var(--blanc);
+}
+
+/* 9. Formulaire de contact ------------------------------------------------ */
+.carte-formulaire {
+  padding: 2.5rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  box-shadow: var(--ombre-forte);
+}
+
+.carte-formulaire .form-control,
+.carte-formulaire .form-select {
+  padding: 0.8rem 1rem;
+  border-radius: 0.7rem;
+  border-color: #cfdcd3;
+}
+
+.carte-formulaire .form-control:focus,
+.carte-formulaire .form-select:focus {
+  border-color: var(--pin-500);
+  box-shadow: 0 0 0 0.25rem rgba(47, 122, 87, 0.2);
+}
+
+.carte-coordonnees {
+  height: 100%;
+  padding: 2.5rem;
+  border-radius: var(--rayon);
+  background: linear-gradient(rgba(18, 48, 31, 0.9), rgba(18, 48, 31, 0.93)), url("../assets/img/pins-ciel.jpg") center / cover;
+  color: var(--sauge-200);
+}
+
+.carte-coordonnees h2,
+.carte-coordonnees h3 {
+  color: var(--blanc);
+}
+
+.carte-coordonnees a {
+  color: var(--blanc);
+}
+
+.ligne-contact {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.ligne-contact i {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--ambre-500);
+  font-size: 1.2rem;
+}
+
+.carte-plan {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+}
+
+/* 10. Pied de page -------------------------------------------------------- */
+.pied-page {
+  background-color: var(--pin-900);
+  color: rgba(216, 230, 220, 0.85);
+  padding: 4.5rem 0 1.5rem;
+}
+
+.pied-page h2,
+.pied-page h3 {
+  color: var(--blanc);
+  font-size: 1.15rem;
+}
+
+.pied-page a {
+  color: rgba(216, 230, 220, 0.85);
+  text-decoration: none;
+  transition: color var(--transition), padding-left var(--transition);
+}
+
+.pied-page ul a:hover {
+  color: var(--blanc);
+  padding-left: 0.3rem;
+}
+
+.pied-page .reseaux a {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0.4rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.pied-page .reseaux a:hover {
+  background-color: var(--ambre-500);
+  color: var(--blanc);
+  transform: translateY(-3px);
+}
+
+.pied-page .mini-galerie img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  opacity: 0.85;
+  transition: opacity var(--transition);
+}
+
+.pied-page .mini-galerie img:hover {
+  opacity: 1;
+}
+
+.pied-page .bas {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.85rem;
+}
+
+/* Bouton « retour en haut » (affiché par script.js) */
+.retour-haut {
+  position: fixed;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--pin-700);
+  color: var(--blanc);
+  box-shadow: var(--ombre);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.retour-haut.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 11. Chatbot (bulle flottante) ------------------------------------------- */
+.chatbot-bouton {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1050;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--ambre-500);
+  color: var(--blanc);
+  font-size: 1.7rem;
+  box-shadow: 0 10px 25px rgba(224, 137, 63, 0.45);
+  transition: transform var(--transition), background-color var(--transition);
+}
+
+.chatbot-bouton:hover {
+  transform: scale(1.08);
+  background-color: var(--ambre-600);
+}
+
+/* Halo pulsé pour attirer l'œil sur l'assistant */
+.chatbot-bouton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--ambre-500);
+  animation: pulsation 2.4s ease-out infinite;
+}
+
+@keyframes pulsation {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.chatbot-bulle-accueil {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 6rem;
+  z-index: 1050;
+  max-width: 260px;
+  padding: 0.8rem 1rem;
+  border-radius: 1rem 1rem 0.2rem 1rem;
+  background: var(--blanc);
+  box-shadow: var(--ombre-forte);
+  font-size: 0.92rem;
+}
+
+.chatbot-fenetre {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 6rem;
+  z-index: 1060;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  max-width: calc(100vw - 2rem);
+  height: 560px;
+  max-height: calc(100vh - 8rem);
+  border-radius: 1.2rem;
+  background: var(--blanc);
+  box-shadow: 0 25px 60px rgba(18, 48, 31, 0.3);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+}
+
+.chatbot-fenetre.ouverte {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.chatbot-entete {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(120deg, var(--pin-900), var(--pin-700));
+  color: var(--blanc);
+}
+
+.chatbot-entete img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--ambre-500);
+}
+
+.chatbot-entete .statut {
+  font-size: 0.78rem;
+  color: var(--sauge-200);
+}
+
+.chatbot-entete .statut::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.35rem;
+  border-radius: 50%;
+  background-color: #6fdc8c;
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: var(--sable-100);
+}
+
+.message {
+  max-width: 85%;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 1rem;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.message-assistant {
+  background: var(--blanc);
+  border-bottom-left-radius: 0.25rem;
+  box-shadow: 0 2px 6px rgba(18, 48, 31, 0.08);
+}
+
+.message-visiteur {
+  margin-left: auto;
+  background: var(--pin-700);
+  color: var(--blanc);
+  border-bottom-right-radius: 0.25rem;
+}
+
+.message-erreur {
+  background: #fdecea;
+  color: #8a1c13;
+}
+
+/* Trois points animés pendant que l'assistant « écrit » */
+.message-saisie span {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: 0 0.1rem;
+  border-radius: 50%;
+  background-color: var(--gris-texte);
+  animation: rebond 1.2s infinite ease-in-out;
+}
+
+.message-saisie span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.message-saisie span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes rebond {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+.chatbot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0 1rem 0.6rem;
+  background-color: var(--sable-100);
+}
+
+.chatbot-suggestions button {
+  border: 1px solid var(--pin-500);
+  border-radius: 999px;
+  background: var(--blanc);
+  color: var(--pin-700);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.chatbot-suggestions button:hover {
+  background-color: var(--pin-700);
+  color: var(--blanc);
+}
+
+.chatbot-formulaire {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid #e3ebe5;
+}
+
+.chatbot-formulaire input {
+  flex: 1;
+  border-radius: 999px;
+}
+
+.chatbot-formulaire button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.chatbot-mention {
+  margin: 0;
+  padding: 0 0.75rem 0.6rem;
+  font-size: 0.7rem;
+  color: var(--gris-texte);
+  text-align: center;
+}
+
+/* 12. Apparition au défilement -------------------------------------------- */
+/* L'état caché n'est appliqué que si JavaScript est actif (classe js sur <html>) */
+.js .apparition {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js .apparition.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Respect des préférences « réduire les animations » */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .js .apparition {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* 13. Media queries (responsive) ------------------------------------------ */
+
+/* Tablettes et petits écrans */
+@media (max-width: 991.98px) {
+  .section {
+    padding: 4.5rem 0;
+  }
+
+  .navbar-pins .navbar-collapse {
+    padding: 1rem 0;
+  }
+
+  .navbar-pins .nav-link::after {
+    display: none;
+  }
+
+  .galerie {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+  }
+
+  .duo-images .image-secondaire {
+    right: 0;
+  }
+}
+
+/* Téléphones */
+@media (max-width: 575.98px) {
+  .carrousel-accueil .carousel-item {
+    height: 78vh;
+    min-height: 480px;
+  }
+
+  .carrousel-accueil .carousel-caption {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .carrousel-accueil .carousel-caption p {
+    font-size: 1rem;
+  }
+
+  .bandeau-page {
+    min-height: 38vh;
+    padding: 6rem 0 2.5rem;
+  }
+
+  .galerie {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 150px;
+    gap: 0.6rem;
+  }
+
+  .galerie .grande {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .carte-formulaire,
+  .carte-coordonnees {
+    padding: 1.6rem;
+  }
+
+  .chatbot-fenetre {
+    right: 1rem;
+    bottom: 5.5rem;
+    height: calc(100vh - 7rem);
+  }
+
+  .chatbot-bulle-accueil {
+    display: none;
+  }
+}

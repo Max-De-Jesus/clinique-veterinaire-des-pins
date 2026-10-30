@@ -1,0 +1,53 @@
+# Manifeste des images du site (toutes issues d'Unsplash, licence Unsplash : usage libre et gratuit).
+# Format : nom_de_fichier | identifiant Unsplash (CDN images.unsplash.com) | largeur de téléchargement
+# Pour (re)télécharger : node tools/download-images.mjs
+# --- Carrousel d'accueil et bandeaux ---
+hero-consultation.jpg | photo-1770836037289-e00e5f351d11 | 1800
+hero-chien-proprietaire.jpg | photo-1522276498395-f4f68f7f8454 | 1800
+hero-chaton.jpg | photo-1725409796872-8b41e8eca929 | 1800
+hero-pins.jpg | photo-1783453410533-65f1c9da5be7 | 1800
+pins-brume.jpg | photo-1502252430442-aac78f397426 | 1800
+pins-ciel.jpg | photo-1784283352665-a9352e762835 | 1200
+chien-foret.jpg | photo-1762892753883-209387aaf348 | 1200
+chien-bois.jpg | photo-1669568453254-858109bd4d8e | 1200
+# --- Soins et services ---
+vaccin-chien.jpg | photo-1770836037275-38b44e4b101f | 1000
+examen-teckel.jpg | photo-1770836037793-95bdbf190f71 | 1000
+dents-teckel.jpg | photo-1770836037816-4445dbd449fd | 1000
+dents-teckel-2.jpg | photo-1770836037949-c5e8db65aa86 | 1000
+examen-chat.jpg | photo-1733783506192-653df6185a7d | 1000
+caresse-chat.jpg | photo-1733783489145-f3d3ee7a9ccf | 1000
+chaton-mains.jpg | photo-1728013274420-ed02b1f58887 | 1000
+bloc-operatoire.jpg | photo-1551076805-e1869033e561 | 1200
+laboratoire.jpg | photo-1602052577122-f73b9710adba | 1000
+soin-chien-sol.jpg | photo-1632236542159-809925d85fc0 | 1000
+clinique-chien.jpg | photo-1654895716780-b4664497420d | 1000
+couple-chien.jpg | photo-1700665537604-412e89a285c3 | 1000
+chien-masque.jpg | photo-1644675272883-0c4d582528d8 | 1000
+toilettage-shihtzu.jpg | photo-1534361960057-19889db9621e | 1000
+chien-bandana.jpg | photo-1772437883387-8076cf660c65 | 1000
+# --- Animaux (galerie, NAC) ---
+chiot-golden.jpg | photo-1600804340584-c7db2eacf0bf | 1000
+chiot-dort.jpg | photo-1760615302825-900295f63a2c | 1000
+chiot-tulipe.jpg | photo-1552053831-71594a27632d | 1000
+chiens-course.jpg | photo-1548199973-03cce0bbc87b | 1200
+chiot-brun.jpg | photo-1537151608828-ea2b11777ee8 | 1000
+chaton-tigre.jpg | photo-1574144611937-0df059b5ef3e | 1000
+chat-roux.jpg | photo-1573865526739-10659fec78a5 | 1000
+chat-longpoil.jpg | photo-1592194996308-7b43878e84a6 | 1000
+chat-tigre.jpg | photo-1478098711619-5ab0b478d6e6 | 1000
+lapin-blanc.jpg | photo-1585110396000-c9ffd4e4b308 | 1000
+lapin-gris.jpg | photo-1609151354448-c4a53450c6e9 | 1000
+perruche.jpg | photo-1552728089-57bdde30beb3 | 1000
+ara.jpg | photo-1452570053594-1b985d6ea890 | 1000
+cheval.jpg | photo-1514861889637-9f51bc99fc19 | 1000
+# --- Propriétaires heureux ---
+femme-chien.jpg | photo-1557495235-340eb888a9fb | 1000
+chien-bisou.jpg | photo-1579119134757-5c38803f34fc | 1000
+jeu-exterieur.jpg | photo-1551779891-b83901e1f8b3 | 1000
+homme-petit-chien.jpg | photo-1700665537650-1bf37979aae0 | 1000
+# --- Équipe ---
+equipe-1.jpg | photo-1781296134652-1f9ad66dd29a | 700
+equipe-2.jpg | photo-1622253692010-333f2da6031d | 700
+equipe-3.jpg | photo-1594824476967-48c8b964273f | 700
+equipe-4.jpg | photo-1612531385446-f7e6d131e1d0 | 700

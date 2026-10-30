@@ -1,0 +1,15 @@
+# Secrets locaux : ne jamais versionner
+.env
+.env.*
+!.env.example
+
+# Vercel et Node
+.vercel/
+node_modules/
+
+# Système
+Thumbs.db
+.DS_Store
+
+# Sujet du projet (document de l'enseignant, non nécessaire au site)
+Projet 1.pdf

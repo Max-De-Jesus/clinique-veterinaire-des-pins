@@ -1,0 +1,16 @@
+{
+  "name": "clinique-veterinaire-des-pins",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site vitrine de la Clinique Vétérinaire des Pins (projet hackathon HTML/CSS/Bootstrap) avec chatbot IA.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node tools/dev-server.mjs",
+    "test": "node tools/run-tests.mjs",
+    "validate": "npx --yes html-validate@8.24.1 index.html a-propos.html services.html contact.html",
+    "images": "node tools/download-images.mjs"
+  }
+}

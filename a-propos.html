@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Encodage, affichage mobile et référencement -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>À propos | Clinique Vétérinaire des Pins</title>
+  <meta name="description" content="Histoire, valeurs et équipe de la Clinique Vétérinaire des Pins, clinique familiale fondée en 2009 à Mimizan, au cœur de la forêt landaise.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Polices Google : Fraunces (titres) et Nunito Sans (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Nunito+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 et Bootstrap Icons (CDN avec contrôle d'intégrité) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+
+  <!-- Styles personnalisés de la clinique -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
+  <!-- ===== En-tête : bandeau d'urgence + navigation responsive ===== -->
+  <header class="sticky-top">
+    <div class="bandeau-urgence py-2">
+      <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <span><i class="bi bi-clock-history me-1" aria-hidden="true"></i> Lun–Ven 8 h–19 h · Sam 9 h–17 h</span>
+        <span><i class="bi bi-telephone-fill me-1" aria-hidden="true"></i> Urgences 24 h/24 : <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a></span>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-pins" aria-label="Navigation principale">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <svg class="logo-pin" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="24" fill="#1f4d3a"/>
+            <path d="M24 8 L33 21 H28 L35 31 H27 V39 H21 V31 H13 L20 21 H15 Z" fill="#d8e6dc"/>
+            <circle cx="36" cy="36" r="5" fill="#e0893f"/>
+          </svg>
+          <span>Clinique des Pins<small>Vétérinaires</small></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="a-propos.html">À propos</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn btn-ambre" href="contact.html#formulaire">Prendre rendez-vous</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <!-- ===== Bandeau de page ===== -->
+    <section class="bandeau-page bandeau-apropos" aria-labelledby="titre-page">
+      <div class="container">
+        <nav aria-label="Fil d'Ariane">
+          <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">À propos</li>
+          </ol>
+        </nav>
+        <h1 id="titre-page">Une clinique née sous les pins</h1>
+        <p class="lead mb-0">Depuis 2009, nous soignons les animaux de la côte landaise avec rigueur et douceur.</p>
+      </div>
+    </section>
+
+    <!-- ===== Présentation et histoire ===== -->
+    <section class="section" aria-labelledby="titre-histoire">
+      <div class="container">
+        <div class="row g-4 g-lg-5 align-items-center">
+          <div class="col-lg-6 apparition">
+            <span class="sur-titre">Notre histoire</span>
+            <h2 id="titre-histoire">D'un petit cabinet à une clinique de référence</h2>
+            <p class="texte-doux">Tout commence en 2009 quand le Dr Amandine Lartigue, fille de gemmeurs landais, ouvre un cabinet de deux pièces au bord de la forêt de Mimizan. Son idée : un lieu où les animaux n'auraient plus peur d'aller chez le vétérinaire.</p>
+            <p class="texte-doux">Dix-sept ans plus tard, la Clinique des Pins compte quatre vétérinaires, trois auxiliaires, un bloc opératoire, un laboratoire… et toujours la même pinède où nos patients en convalescence viennent se dégourdir les pattes.</p>
+
+            <ol class="chronologie mt-4">
+              <li><span class="annee">2009</span><br>Ouverture du cabinet par le Dr Lartigue.</li>
+              <li><span class="annee">2014</span><br>Création du bloc opératoire et du service d'urgences 24 h/24.</li>
+              <li><span class="annee">2019</span><br>Label « Cat Friendly » et ouverture du pôle NAC &amp; oiseaux.</li>
+              <li><span class="annee">2024</span><br>Inauguration du Sentier des Pins, parcours de rééducation en forêt.</li>
+            </ol>
+          </div>
+          <div class="col-lg-6 apparition">
+            <div class="row g-3">
+              <div class="col-12"><img class="image-arrondie" src="assets/img/pins-ciel.jpg" alt="Cimes des pins sous un ciel bleu" width="1200" height="800" loading="lazy"></div>
+              <div class="col-6"><img class="image-arrondie" src="assets/img/homme-petit-chien.jpg" alt="Une soignante tient un petit chien sous l'œil d'un collègue" width="1000" height="667" loading="lazy"></div>
+              <div class="col-6"><img class="image-arrondie" src="assets/img/chien-foret.jpg" alt="Chien sur une route bordée de pins" width="1200" height="800" loading="lazy"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Valeurs (cartes photo) ===== -->
+    <section class="section section-sable" aria-labelledby="titre-valeurs">
+      <div class="container">
+        <div class="titre-section apparition">
+          <span class="sur-titre">Nos valeurs</span>
+          <h2 id="titre-valeurs">Quatre engagements qui guident chaque soin</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-valeur">
+              <img src="assets/img/caresse-chat.jpg" alt="" width="1000" height="667" loading="lazy">
+              <div class="contenu">
+                <i class="bi bi-heart fs-2 text-warning" aria-hidden="true"></i>
+                <h3>Bienveillance</h3>
+                <p class="mb-0">Manipulations douces, zéro contention inutile, et le temps de rassurer.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-valeur">
+              <img src="assets/img/laboratoire.jpg" alt="" width="1000" height="667" loading="lazy">
+              <div class="contenu">
+                <i class="bi bi-mortarboard fs-2 text-warning" aria-hidden="true"></i>
+                <h3>Rigueur médicale</h3>
+                <p class="mb-0">Formation continue, protocoles validés et diagnostics fondés sur la preuve.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-valeur">
+              <img src="assets/img/femme-chien.jpg" alt="" width="1000" height="667" loading="lazy">
+              <div class="contenu">
+                <i class="bi bi-chat-heart fs-2 text-warning" aria-hidden="true"></i>
+                <h3>Transparence</h3>
+                <p class="mb-0">Devis avant chaque acte, explications claires, compte-rendu écrit.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-valeur">
+              <img src="assets/img/pins-brume.jpg" alt="" width="1800" height="1200" loading="lazy">
+              <div class="contenu">
+                <i class="bi bi-tree fs-2 text-warning" aria-hidden="true"></i>
+                <h3>Respect du vivant</h3>
+                <p class="mb-0">Clinique éco-conçue, déchets médicaux triés, partenaires locaux.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== L'équipe ===== -->
+    <section class="section" aria-labelledby="titre-equipe">
+      <div class="container">
+        <div class="titre-section apparition">
+          <span class="sur-titre">L'équipe</span>
+          <h2 id="titre-equipe">Les visages de la clinique</h2>
+          <p class="texte-doux">Quatre vétérinaires complémentaires, épaulés par trois auxiliaires spécialisées.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-equipe">
+              <div class="photo"><img src="assets/img/equipe-1.jpg" alt="Portrait du Dr Amandine Lartigue en blouse blanche" width="700" height="467" loading="lazy"></div>
+              <div class="p-4">
+                <h3 class="h5 mb-1">Dr Amandine Lartigue</h3>
+                <p class="role mb-2">Fondatrice · Médecine interne</p>
+                <p class="small texte-doux mb-0">Passionnée de cardiologie, elle connaît chaque sentier de la forêt par cœur.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-equipe">
+              <div class="photo"><img src="assets/img/equipe-2.jpg" alt="Portrait du Dr Karim Diallo en tenue bleue avec stéthoscope" width="700" height="467" loading="lazy"></div>
+              <div class="p-4">
+                <h3 class="h5 mb-1">Dr Karim Diallo</h3>
+                <p class="role mb-2">Chirurgie &amp; orthopédie</p>
+                <p class="small texte-doux mb-0">Il a imaginé le Sentier des Pins pour la rééducation après opération.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-equipe">
+              <div class="photo"><img src="assets/img/equipe-3.jpg" alt="Portrait du Dr Léa Marchetti en tenue turquoise" width="700" height="467" loading="lazy"></div>
+              <div class="p-4">
+                <h3 class="h5 mb-1">Dr Léa Marchetti</h3>
+                <p class="role mb-2">NAC, oiseaux &amp; chats</p>
+                <p class="small texte-doux mb-0">Référente « Cat Friendly », elle parle aussi couramment le perroquet.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-sm-6 col-lg-3 apparition">
+            <article class="carte-equipe">
+              <div class="photo"><img src="assets/img/equipe-4.jpg" alt="Portrait du Dr Rayan Kapoor en blouse blanche" width="700" height="467" loading="lazy"></div>
+              <div class="p-4">
+                <h3 class="h5 mb-1">Dr Rayan Kapoor</h3>
+                <p class="role mb-2">Imagerie &amp; urgences</p>
+                <p class="small texte-doux mb-0">Échographiste, il coordonne aussi les gardes de nuit et du week-end.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Nos installations (galerie) ===== -->
+    <section class="section section-sauge" aria-labelledby="titre-installations">
+      <div class="container">
+        <div class="titre-section apparition">
+          <span class="sur-titre">Visite guidée</span>
+          <h2 id="titre-installations">Nos installations</h2>
+          <p class="texte-doux">Un plateau technique moderne dans un cadre apaisant.</p>
+        </div>
+        <div class="galerie apparition">
+          <figure class="grande" tabindex="0"><img src="assets/img/bloc-operatoire.jpg" alt="Bloc opératoire" width="1200" height="800" loading="lazy"><figcaption>Le bloc opératoire</figcaption></figure>
+          <figure tabindex="0"><img src="assets/img/laboratoire.jpg" alt="Laboratoire d'analyses" width="1000" height="667" loading="lazy"><figcaption>Laboratoire d'analyses</figcaption></figure>
+          <figure tabindex="0"><img src="assets/img/clinique-chien.jpg" alt="Salle de consultation avec un petit chien" width="1000" height="667" loading="lazy"><figcaption>Salle de consultation chiens</figcaption></figure>
+          <figure tabindex="0"><img src="assets/img/examen-chat.jpg" alt="Examen d'un chat blanc" width="1000" height="667" loading="lazy"><figcaption>Espace Cat Friendly</figcaption></figure>
+          <figure tabindex="0"><img src="assets/img/soin-chien-sol.jpg" alt="Chien détendu sur le sol d'une salle de soins" width="1000" height="667" loading="lazy"><figcaption>Salle de réveil</figcaption></figure>
+          <figure class="large" tabindex="0"><img src="assets/img/hero-pins.jpg" alt="Sentier ensoleillé dans la pinède" width="1800" height="1200" loading="lazy"><figcaption>Le Sentier des Pins</figcaption></figure>
+          <figure class="large" tabindex="0"><img src="assets/img/chien-masque.jpg" alt="Soignant masqué avec un corgi" width="1000" height="667" loading="lazy"><figcaption>Hospitalisation surveillée</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Appel à l'action ===== -->
+    <section class="appel-action" aria-labelledby="titre-cta">
+      <div class="container text-center apparition">
+        <h2 id="titre-cta" class="display-6">Envie de nous rencontrer ?</h2>
+        <p class="lead mb-4">Venez visiter la clinique ou découvrez l'ensemble de nos services.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <a class="btn btn-ambre" href="services.html">Nos services</a>
+          <a class="btn btn-contour-clair" href="contact.html">Nous contacter</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Pied de page ===== -->
+  <footer class="pied-page">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h2 class="titre-serif">Clinique Vétérinaire des Pins</h2>
+          <p>Soigner avec science, accueillir avec cœur. Chiens, chats, NAC et équidés depuis 2009.</p>
+          <div class="reseaux">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Navigation</h3>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3>Nous trouver</h3>
+          <address class="mb-0">
+            12 allée des Pins<br>40200 Mimizan, France<br>
+            <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a><br>
+            <a href="mailto:contact@clinique-des-pins.fr">contact@clinique-des-pins.fr</a>
+          </address>
+        </div>
+        <div class="col-lg-3">
+          <h3>Sur Instagram</h3>
+          <div class="row g-2 mini-galerie">
+            <div class="col-4"><img src="assets/img/chiot-dort.jpg" alt="Chiot endormi" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chat-longpoil.jpg" alt="Chaton qui joue" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chien-bandana.jpg" alt="Bichon avec un bandana" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/toilettage-shihtzu.jpg" alt="Petit chien blanc qui court" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/chiot-tulipe.jpg" alt="Chiot avec une fleur dans la gueule" width="120" height="120" loading="lazy"></div>
+            <div class="col-4"><img src="assets/img/pins-ciel.jpg" alt="Cimes des pins" width="120" height="120" loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+      <div class="bas d-flex flex-wrap justify-content-between gap-2">
+        <span>© 2026 Clinique Vétérinaire des Pins — entreprise fictive, projet pédagogique.</span>
+        <span>Photos : <a href="https://unsplash.com/license">Unsplash</a> (libres de droits)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bouton « retour en haut » -->
+  <button class="retour-haut" type="button" aria-label="Revenir en haut de la page"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+
+  <!-- Scripts : Bootstrap puis script du site (chatbot inclus) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
