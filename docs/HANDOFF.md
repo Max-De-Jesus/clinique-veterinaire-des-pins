@@ -16,7 +16,7 @@
   - le chatbot sans clé affiche un message d'indisponibilité propre (HTTP 503).
 
 ## Non prouvé (à faire)
-1. **Appel réel à Gemini** : aucune clé n'est disponible sur la machine. Pour le vérifier :
+1. ~~Appel réel à Gemini~~ **Prouvé le 2026-10-30** en local : réponses justes sur les horaires et le tarif, redirection vers le 05 58 00 12 34 en cas d'urgence, refus du hors sujet. La clé reste à ajouter dans Vercel. Ancienne procédure de test :
    - créer une clé sur https://aistudio.google.com/apikey ;
    - lancer `$env:GEMINI_API_KEY="..."; npm run dev` ;
    - poser une question au chatbot.
