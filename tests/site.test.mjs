@@ -114,6 +114,7 @@ test('les attributs width et height des images correspondent aux fichiers réels
     const html = await lire(page);
     for (const [balise] of html.matchAll(/<img\b[^>]*>/g)) {
       const src = balise.match(/src="([^"]+)"/)[1];
+      if (src.endsWith('.svg')) continue; // une image vectorielle n'a pas de dimensions en pixels
       const octets = await readFile(path.join(racine, src));
       const { largeur, hauteur } = dimensionsJpeg(octets);
       assert.match(balise, new RegExp(`width="${largeur}" height="${hauteur}"`), `${page} : ${src} mesure ${largeur}×${hauteur}`);
@@ -216,4 +217,12 @@ test('sujet : toutes les photos du site sont listées dans le manifeste Unsplash
   for (const fichier of fichiers) {
     assert.match(manifeste, new RegExp('^' + fichier.replace('.', '\\.') + ' \\| photo-', 'm'), fichier + ' sans source Unsplash');
   }
+});
+
+test('page contact : QR code local, en bas de page, avec une adresse en HTTPS', async () => {
+  const html = await lire('contact.html');
+  assert.match(html, /<img class="code-qr" src="assets\/qr-site\.svg" alt="QR code[^"]+" width="320" height="320" loading="lazy">/);
+  assert.match(html, /href="https:\/\/clinique-veterinaire-des-pins\.vercel\.app\/"/);
+  assert.ok(html.indexOf('code-qr') > html.indexOf('appel-action'), 'le QR code doit rester en bas de la page');
+  assert.match(await lire('assets/qr-site.svg'), /<svg[\s\S]*<\/svg>/);
 });

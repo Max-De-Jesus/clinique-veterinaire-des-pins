@@ -1662,6 +1662,44 @@ img {
   object-fit: cover;
 }
 
+/* Bloc du QR code : le fond reste blanc, pour que le code se scanne facilement */
+.section-qr {
+  padding-bottom: var(--espace-section);
+}
+
+.bloc-qr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: center;
+  padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  border-radius: var(--rayon-grand);
+  background: var(--blanc);
+  box-shadow: var(--ombre);
+}
+
+.bloc-qr h2 {
+  margin-bottom: 1rem;
+}
+
+.lien-site {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.code-qr {
+  width: clamp(12rem, 9rem + 8vw, 16rem);
+  border: 1px solid var(--filet);
+  border-radius: var(--rayon);
+  background-color: #ffffff;
+  transition: transform var(--duree) var(--courbe), box-shadow var(--duree) var(--courbe);
+}
+
+.code-qr:hover {
+  transform: scale(1.03);
+  box-shadow: var(--ombre);
+}
+
 /* 16. Ruban de photos et pied de page --------------------------------------- */
 .ruban-photos {
   display: grid;
@@ -2160,6 +2198,19 @@ img {
 
   .etapes {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bloc-qr {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+
+  .bloc-qr > div {
+    width: 100%;
+  }
+
+  .code-qr {
+    width: min(100%, 15rem);
   }
 
   .carte-horizontale {
