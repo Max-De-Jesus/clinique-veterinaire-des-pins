@@ -1,0 +1,9 @@
+# Fichiers jamais publiés par un déploiement depuis la ligne de commande
+Projet 1.pdf
+.env
+.env.*
+.git
+tests
+tools
+docs
+AGENTS.md

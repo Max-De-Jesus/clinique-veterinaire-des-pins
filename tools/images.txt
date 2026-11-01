@@ -1,8 +1,8 @@
 # Manifeste des images du site (toutes issues d'Unsplash, licence Unsplash : usage libre et gratuit).
 # Format : nom_de_fichier | identifiant Unsplash (CDN images.unsplash.com) | largeur de téléchargement
 # Pour (re)télécharger : node tools/download-images.mjs
-# Attention : hero-pins, pins-ciel, chien-foret et pins-brume ont ensuite été recompressées (mozjpeg, qualité 62) :
-# un nouveau téléchargement les rendrait de nouveau lourdes, et leurs dimensions doivent rester celles du HTML.
+# Attention : les fichiers de assets/img ont ensuite été allégés (sharp, mozjpeg, qualité 64 ; largeur 900 px, 1400 px pour les grandes photos).
+# Un nouveau téléchargement les rendrait de nouveau lourds : réaligner ensuite les attributs width/height (un test le vérifie).
 # --- Carrousel d'accueil et bandeaux ---
 hero-consultation.jpg | photo-1770836037289-e00e5f351d11 | 1800
 hero-chien-proprietaire.jpg | photo-1522276498395-f4f68f7f8454 | 1800
