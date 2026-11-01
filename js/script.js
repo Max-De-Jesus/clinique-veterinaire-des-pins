@@ -8,7 +8,7 @@
      4. Compteurs animés
      5. Visionneuse de la galerie
      6. Filtres de la page Services
-     7. Formulaire de contact (validation)
+     7. Formulaire de contact (validation et envoi par e-mail via /api/contact)
      8. Statut d'ouverture en temps réel
      9. Chatbot « Sylva » connecté à l'API IA via /api/chat
    ========================================================================== */
@@ -24,6 +24,7 @@ const reduireAnimations = window.matchMedia('(prefers-reduced-motion: reduce)').
 
 document.addEventListener('DOMContentLoaded', () => {
   initialiserNavigation();
+  initialiserCarrousel();
   initialiserApparitions();
   initialiserCompteurs();
   initialiserGalerie();
@@ -65,6 +66,13 @@ function initialiserNavigation() {
       });
     });
   }
+}
+
+// Si le visiteur demande moins d'animations, le carrousel ne défile pas seul.
+// Bootstrap ne le lance qu'à l'événement « load », après ce réglage.
+function initialiserCarrousel() {
+  const carrousel = document.getElementById('carrouselAccueil');
+  if (carrousel && reduireAnimations) carrousel.removeAttribute('data-bs-ride');
 }
 
 /* 3. Apparition au défilement --------------------------------------------- */
@@ -201,6 +209,12 @@ function initialiserFiltres() {
 
 /* 7. Formulaire de contact ------------------------------------------------ */
 
+const CONTACT = {
+  point_api: '/api/contact',   // fonction serveur Vercel : la clé d'envoi reste côté serveur
+  erreur_reseau: 'Connexion impossible : votre message n\'est pas parti. Vérifiez votre réseau, réessayez, ou appelez le 05 58 00 12 34.',
+  erreur_inconnue: 'Votre message n\'a pas pu être envoyé. Réessayez, ou appelez le 05 58 00 12 34.'
+};
+
 function initialiserFormulaireContact() {
   const formulaire = document.getElementById('formContact');
   if (!formulaire) return;
@@ -208,40 +222,44 @@ function initialiserFormulaireContact() {
   const message = document.getElementById('message');
   const compteur = document.getElementById('compteurMessage');
   const confirmation = document.getElementById('confirmationContact');
-  const motifEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const zoneErreur = document.getElementById('erreurContact');
+  const bouton = document.getElementById('boutonEnvoi');
+  const libelleBouton = bouton.textContent;
+  const motifEmail = /^[^\s@,;<>"()]+@[^\s@,;<>"()]+\.[^\s@,;<>"()]{2,}$/;
 
   // Compteur de caractères du message
   const majCompteur = () => {
-    compteur.textContent = `${message.value.length} / ${message.maxLength}`;
+    compteur.textContent = message.value.length + ' / ' + message.maxLength;
   };
   message.addEventListener('input', majCompteur);
   majCompteur();
 
-  // Règle supplémentaire : e-mail avec un vrai domaine (le navigateur accepte « a@b »)
-  const verifierEmail = () => {
-    const champ = formulaire.email;
-    const valeur = champ.value.trim();
-    champ.setCustomValidity(valeur && !motifEmail.test(valeur) ? 'E-mail invalide' : '');
+  // Règles que le navigateur ne vérifie pas : un vrai domaine (il accepte « a@b »),
+  // et des espaces seuls ne comptent pas comme un nom ou un message.
+  const appliquerReglesSupplementaires = () => {
+    const email = formulaire.email.value.trim();
+    formulaire.email.setCustomValidity(email && !motifEmail.test(email) ? 'E-mail invalide' : '');
+    [formulaire.nom, message].forEach((champ) => {
+      const tropCourt = champ.value.length > 0 && champ.value.trim().length < champ.minLength;
+      champ.setCustomValidity(tropCourt ? 'Trop court' : '');
+    });
   };
 
-  // Validation en direct après la première tentative d'envoi
-  formulaire.addEventListener('input', (evt) => {
-    if (evt.target.name === 'email') verifierEmail();
-    if (formulaire.classList.contains('was-validated')) {
-      evt.target.classList.toggle('is-invalid', !evt.target.checkValidity());
-    }
-  });
+  // Validation en direct : l'erreur disparaît dès que le champ est corrigé
+  formulaire.addEventListener('input', appliquerReglesSupplementaires);
 
-  formulaire.addEventListener('submit', (evt) => {
+  // Affiche le résultat d'un envoi dans une seule zone à la fois
+  const afficherResultat = (zone, texte) => {
+    [confirmation, zoneErreur].forEach((z) => z.classList.toggle('d-none', z !== zone));
+    zone.textContent = texte;
+    zone.focus();
+  };
+
+  formulaire.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-    verifierEmail();
+    if (bouton.disabled) return; // évite un double envoi
 
-    // Les espaces seuls ne comptent pas comme un nom ou un message
-    ['nom', 'message'].forEach((nomChamp) => {
-      const champ = formulaire[nomChamp];
-      champ.setCustomValidity(champ.value.trim().length >= champ.minLength ? '' : 'Trop court');
-    });
-
+    appliquerReglesSupplementaires();
     formulaire.classList.add('was-validated');
     if (!formulaire.checkValidity()) {
       const premierInvalide = formulaire.querySelector(':invalid');
@@ -249,18 +267,72 @@ function initialiserFormulaireContact() {
       return;
     }
 
-    // Site de démonstration : aucun serveur de messagerie n'est branché.
-    const prenom = formulaire.nom.value.trim().split(' ')[0];
-    confirmation.textContent = `Merci ${prenom} ! Votre message est prêt. (Site de démonstration : aucun e-mail n'est réellement envoyé — en vrai, nous vous répondrions sous 24 h.)`;
-    confirmation.classList.remove('d-none');
-    confirmation.focus();
-    formulaire.reset();
-    formulaire.classList.remove('was-validated');
-    majCompteur();
+    bouton.disabled = true;
+    bouton.textContent = 'Envoi en cours…';
+    const prenom = formulaire.nom.value.trim().split(/\s+/)[0];
+
+    try {
+      await envoyerFormulaire(formulaire);
+      afficherResultat(confirmation, 'Merci ' + prenom + ', votre message est bien parti. Nous vous répondons sous 24 heures ouvrées.');
+      formulaire.reset();
+      formulaire.classList.remove('was-validated');
+      majCompteur();
+    } catch (erreur) {
+      // Le formulaire reste rempli : le visiteur ne perd pas ce qu'il a écrit
+      afficherResultat(zoneErreur, erreur.message);
+    } finally {
+      bouton.disabled = false;
+      bouton.textContent = libelleBouton;
+    }
   });
 }
 
+// Appel de la fonction serveur : le succès n'est annoncé que si l'e-mail est réellement accepté
+async function envoyerFormulaire(formulaire) {
+  const champs = {
+    nom: formulaire.nom.value.trim(),
+    email: formulaire.email.value.trim(),
+    telephone: formulaire.telephone.value.trim(),
+    animal: formulaire.animal.value,
+    message: formulaire.message.value.trim(),
+    consentement: formulaire.consentement.checked,
+    confirmation_interne: formulaire.confirmation_interne.value
+  };
+
+  let reponse;
+  try {
+    reponse = await fetch(CONTACT.point_api, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(champs)
+    });
+  } catch (erreurReseau) {
+    throw new Error(CONTACT.erreur_reseau);
+  }
+
+  const donnees = await reponse.json().catch(() => ({}));
+  if (!reponse.ok || donnees.envoye !== true) {
+    throw new Error(donnees.erreur || CONTACT.erreur_inconnue);
+  }
+}
+
 /* 8. Statut d'ouverture --------------------------------------------------- */
+
+// Heure et jour à la clinique, quel que soit le fuseau horaire du visiteur
+function heureClinique(date = new Date()) {
+  const morceaux = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Paris',
+    weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23'
+  }).formatToParts(date);
+  const valeur = (type) => morceaux.find((m) => m.type === type).value;
+  return {
+    jour: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(valeur('weekday')),
+    heure: Number(valeur('hour')) + Number(valeur('minute')) / 60
+  };
+}
 
 function afficherStatutOuverture() {
   const badge = document.getElementById('statutOuverture');
@@ -268,13 +340,12 @@ function afficherStatutOuverture() {
 
   // Horaires : [jour (0 = dimanche)] => [ouverture, fermeture] en heures décimales
   const horaires = { 1: [8, 19], 2: [8, 19], 3: [8, 19], 4: [8, 19], 5: [8, 19], 6: [9, 17] };
-  const maintenant = new Date();
-  const plage = horaires[maintenant.getDay()];
-  const heure = maintenant.getHours() + maintenant.getMinutes() / 60;
+  const { jour, heure } = heureClinique();
+  const plage = horaires[jour];
   const ouvert = Boolean(plage) && heure >= plage[0] && heure < plage[1];
 
   badge.textContent = ouvert ? 'Ouvert en ce moment' : 'Fermé — urgences au 05 58 00 12 34';
-  badge.className = ouvert ? 'badge text-bg-success' : 'badge text-bg-warning';
+  badge.classList.toggle('est-ouvert', ouvert);
 }
 
 /* 9. Chatbot « Sylva » ---------------------------------------------------- */
@@ -287,6 +358,9 @@ const CHATBOT = {
   accueil: 'Bonjour, je suis Sylva, l\'assistante de la Clinique Vétérinaire des Pins ! 🌲 Horaires, services, tarifs, préparation d\'une visite… comment puis-je vous aider ?',
   suggestions: ['Quels sont vos horaires ?', 'Combien coûte une consultation ?', 'Soignez-vous les lapins ?', 'C\'est une urgence, que faire ?']
 };
+
+const BULLE_APPARITION_MS = 3500;
+const BULLE_DISPARITION_MS = 12000;
 
 function initialiserChatbot() {
   const elements = construireChatbot();
@@ -326,9 +400,16 @@ function initialiserChatbot() {
   });
   document.querySelectorAll('[data-ouvrir-chatbot]').forEach((b) => b.addEventListener('click', ouvrir));
 
-  // Bulle d'accueil affichée quelques secondes après l'arrivée sur la page
-  setTimeout(() => elements.bulle.classList.remove('d-none'), 3500);
+  // Bulle d'accueil affichée quelques secondes, puis retirée pour ne pas masquer le contenu
+  setTimeout(() => elements.bulle.classList.remove('d-none'), BULLE_APPARITION_MS);
+  setTimeout(() => elements.bulle.classList.add('d-none'), BULLE_DISPARITION_MS);
   elements.bulle.addEventListener('click', ouvrir);
+  elements.bulle.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Enter' || evt.key === ' ') {
+      evt.preventDefault();
+      ouvrir();
+    }
+  });
 
   // Envoi d'une question
   const envoyer = async (texte) => {
@@ -389,7 +470,7 @@ function construireChatbot() {
       <form class="chatbot-formulaire">
         <label class="visually-hidden" for="chatbotChamp">Votre question</label>
         <input class="form-control" id="chatbotChamp" type="text" autocomplete="off" maxlength="${CHATBOT.longueur_max}" placeholder="Écrivez votre question…" required>
-        <button class="btn btn-ambre" type="submit" aria-label="Envoyer"><i class="bi bi-send-fill" aria-hidden="true"></i></button>
+        <button class="btn btn-resine" type="submit" aria-label="Envoyer"><i class="bi bi-send-fill" aria-hidden="true"></i></button>
       </form>
       <p class="chatbot-mention">Sylva est une IA : elle ne remplace pas un avis vétérinaire. Urgence : 05 58 00 12 34.</p>
     </section>`;

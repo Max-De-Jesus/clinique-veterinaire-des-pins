@@ -1,13 +1,17 @@
-// Serveur de développement local : sert le site statique et la fonction /api/chat
-// comme le ferait Vercel. Usage : GEMINI_API_KEY=... node tools/dev-server.mjs  (port 3000 par défaut)
+// Serveur de développement local : sert le site statique et les fonctions /api/chat et /api/contact
+// comme le ferait Vercel. Usage : GEMINI_API_KEY=... RESEND_API_KEY=... CONTACT_DESTINATAIRE=... node tools/dev-server.mjs
+// (port 3000 par défaut ; sans clé, le service concerné répond HTTP 503)
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import * as apiChat from '../api/chat.js';
+import * as apiContact from '../api/contact.js';
 
 const racine = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const port = Number(process.env.PORT) || 3000;
+const HOTE_LOCAL = '127.0.0.1'; // le serveur local n'est jamais exposé au réseau
+const ROUTES_API = { '/api/chat': apiChat, '/api/contact': apiContact };
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -20,8 +24,8 @@ const TYPES = {
 };
 
 /** Transforme la requête Node en Request standard, appelle le handler, renvoie la Response. */
-async function servirApi(req, res) {
-  const handler = apiChat[req.method];
+async function servirApi(api, req, res) {
+  const handler = api[req.method];
   if (typeof handler !== 'function') {
     res.writeHead(405).end();
     return;
@@ -42,7 +46,10 @@ async function servirApi(req, res) {
 async function servirFichier(req, res) {
   const chemin = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   const fichier = path.join(racine, chemin === '/' ? 'index.html' : chemin);
-  if (!fichier.startsWith(racine + path.sep)) {
+  // Ni sortie du dossier racine, ni fichier caché (.env.local, .git, .vercel…)
+  const cheminRelatif = path.relative(racine, fichier);
+  const estCache = cheminRelatif.split(path.sep).some((segment) => segment.startsWith('.'));
+  if (!fichier.startsWith(racine + path.sep) || estCache) {
     res.writeHead(403).end();
     return;
   }
@@ -57,12 +64,13 @@ async function servirFichier(req, res) {
 }
 
 createServer((req, res) => {
-  const traitement = req.url.startsWith('/api/chat') ? servirApi(req, res) : servirFichier(req, res);
+  const api = ROUTES_API[new URL(req.url, 'http://x').pathname];
+  const traitement = api ? servirApi(api, req, res) : servirFichier(req, res);
   traitement.catch((erreur) => {
     console.error(erreur);
     if (!res.headersSent) res.writeHead(500);
     res.end();
   });
-}).listen(port, () => {
+}).listen(port, HOTE_LOCAL, () => {
   console.log(`Site disponible sur http://localhost:${port}`);
 });

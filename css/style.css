@@ -1,68 +1,135 @@
 /* ==========================================================================
    Clinique Vétérinaire des Pins — feuille de style personnalisée
-   Complète Bootstrap 5 : identité visuelle, animations, responsive.
+   Direction « carnet naturaliste » : papier chaud, vert pin, accent résine,
+   grands titres serif, filets fins et photos sans cadre. Complète Bootstrap 5.
    Sommaire :
-     1. Variables (couleurs, typographie)
+     1. Variables (couleurs, typographie, rythme)
      2. Base et typographie
-     3. Barre de navigation
-     4. Carrousel d'accueil et bandeaux de page
-     5. Sections, cartes et effets au survol
-     6. Galerie photo
-     7. Équipe, valeurs, chronologie
-     8. Témoignages, chiffres clés, appel à l'action
-     9. Formulaire de contact
-    10. Pied de page
-    11. Chatbot (bulle flottante)
-    12. Apparition au défilement
-    13. Media queries (responsive)
+     3. Boutons et liens
+     4. En-tête et navigation
+     5. Hero et carrousel d'accueil
+     6. Bandeaux des pages intérieures
+     7. Sections et en-têtes de section
+     8. Cartes de services et filtres
+     9. Photos superposées, listes, étapes
+    10. Galerie photo et visionneuse
+    11. Chronologie, valeurs, équipe
+    12. Chiffres clés, témoignages, appel à l'action
+    13. Tarifs et questions fréquentes
+    14. Formulaire de contact et coordonnées
+    15. Ruban de photos et pied de page
+    16. Chatbot (bulle flottante)
+    17. Apparition au défilement
+    18. Media queries (responsive)
    ========================================================================== */
 
 /* 1. Variables ------------------------------------------------------------ */
 :root {
-  --pin-900: #12301f;       /* vert pin profond : titres, pied de page */
-  --pin-700: #1f4d3a;       /* vert principal de la marque */
-  --pin-500: #2f7a57;       /* vert d'action (liens, survols) */
-  --sauge-200: #d8e6dc;     /* vert sauge clair : fonds doux */
-  --sable-100: #f6f1e7;     /* beige sable des Landes : fond de section */
-  --ambre-500: #e0893f;     /* accent chaleureux : boutons d'appel */
-  --ambre-600: #c8722b;
-  --encre: #22302a;         /* couleur du texte courant */
-  --gris-texte: #5d6b63;
-  --blanc: #ffffff;
-  --rayon: 1rem;            /* arrondi commun des cartes */
-  --ombre: 0 10px 30px rgba(18, 48, 31, 0.12);
-  --ombre-forte: 0 18px 40px rgba(18, 48, 31, 0.22);
-  --police-titre: "Fraunces", Georgia, serif;
-  --police-texte: "Nunito Sans", "Segoe UI", Arial, sans-serif;
-  --transition: 0.35s ease;
+  /* Fonds : la famille « papier » */
+  --papier: #f5f0e6;
+  --papier-clair: #fbf8f1;
+  --papier-fonce: #e9e2d2;
+  /* Texte et marque : la famille « pin » */
+  --encre: #1b2a21;
+  --encre-douce: #515e56;
+  --pin: #1e3f2f;
+  --pin-nuit: #11261b;
+  --sauge: #c8d3c1;
+  /* Un seul accent : la résine des pins */
+  --resine: #a84a1a;
+  --resine-foncee: #8a3b12;
+  --resine-claire: #e39a68;
+  /* États */
+  --erreur: #97281a;
+  --erreur-fond: #f8e4dc;
+  --succes-fond: #dfe8da;
+  /* Traits et ombres teintées */
+  --filet: rgba(27, 42, 33, 0.2);
+  --filet-clair: rgba(245, 240, 230, 0.22);
+  --bordure-champ: #76807a;
+  --ombre: 0 18px 40px -18px rgba(17, 38, 27, 0.45);
+  /* Typographie */
+  --police-titre: "Newsreader", Georgia, "Times New Roman", serif;
+  --police-texte: "Instrument Sans", "Segoe UI", Arial, sans-serif;
+  --taille-h2: clamp(2.1rem, 1.5rem + 2.6vw, 3.6rem);
+  --taille-chapeau: clamp(1.08rem, 1rem + 0.35vw, 1.3rem);
+  /* Rythme : plus d'air sous une section qu'au-dessus */
+  --espace-section-haut: clamp(4rem, 3rem + 4vw, 7rem);
+  --espace-section-bas: clamp(4.5rem, 3rem + 5vw, 8rem);
+  /* Mouvement */
+  --duree: 0.3s;
+  --courbe: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Empilement */
+  --z-haut: 1030;
+  --z-chatbot: 1050;
+  --z-grain: 2000;
+
+  /* Variables de Bootstrap réglées sur l'identité de la clinique */
+  --bs-body-bg: var(--papier);
+  --bs-body-color: var(--encre);
+  --bs-body-font-family: var(--police-texte);
+  --bs-link-color-rgb: 30, 63, 47;
+  --bs-link-hover-color-rgb: 168, 74, 26;
+  --bs-border-color: var(--filet);
+  --bs-form-invalid-color: var(--erreur);
+  --bs-form-invalid-border-color: var(--erreur);
+  --bs-form-valid-color: var(--pin);
+  --bs-form-valid-border-color: var(--pin);
 }
 
 /* 2. Base et typographie -------------------------------------------------- */
+html {
+  scroll-padding-top: 7rem; /* les ancres ne passent pas sous l'en-tête collant */
+}
+
 body {
-  font-family: var(--police-texte);
-  color: var(--encre);
-  background-color: var(--blanc);
-  line-height: 1.7;
+  line-height: 1.65;
+  overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5,
-.titre-serif {
+/* Grain de papier très léger sur toute la page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  background: url("../assets/grain.svg");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4,
+.devise {
   font-family: var(--police-titre);
-  color: var(--pin-900);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: inherit;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-wrap: balance;
 }
 
-a {
-  color: var(--pin-500);
+h2 {
+  font-size: var(--taille-h2);
 }
 
-a:hover {
-  color: var(--pin-700);
+h3 {
+  font-size: 1.6rem;
+  line-height: 1.15;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 img {
+  display: block;
   max-width: 100%;
+  height: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--resine);
+  outline-offset: 3px;
 }
 
 /* Lien d'évitement pour la navigation au clavier */
@@ -70,154 +137,194 @@ img {
   position: absolute;
   top: -100px;
   left: 1rem;
-  z-index: 2000;
+  z-index: var(--z-grain);
   padding: 0.5rem 1rem;
-  background: var(--pin-900);
-  color: var(--blanc);
-  border-radius: 0.5rem;
+  background: var(--pin-nuit);
+  color: var(--papier);
 }
 
 .lien-evitement:focus {
   top: 1rem;
-  color: var(--blanc);
+  color: var(--papier);
 }
 
-/* Petit sur-titre au-dessus des titres de section */
+/* Repère de section : numéro en résine, libellé sobre */
 .sur-titre {
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  color: var(--ambre-600);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.sur-titre span {
+  margin-right: 0.6rem;
+  font-family: var(--police-titre);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--resine);
+}
+
+.sur-titre-simple {
+  margin-bottom: 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--encre);
+}
+
+.chapeau {
+  max-width: 34em;
+  font-size: var(--taille-chapeau);
+  line-height: 1.5;
+  color: var(--encre-douce);
 }
 
 .texte-doux {
-  color: var(--gris-texte);
+  color: var(--encre-douce);
 }
 
-/* Boutons aux couleurs de la clinique */
-.btn-ambre {
-  background-color: var(--ambre-500);
-  border-color: var(--ambre-500);
-  color: var(--blanc);
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 0.75rem 1.6rem;
-  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
+/* 3. Boutons et liens ----------------------------------------------------- */
+.btn-resine,
+.btn-contour-clair {
+  border-radius: 2px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 500;
+  transition: background-color var(--duree) var(--courbe), color var(--duree) var(--courbe), transform var(--duree) var(--courbe);
 }
 
-.btn-ambre:hover,
-.btn-ambre:focus {
-  background-color: var(--ambre-600);
-  border-color: var(--ambre-600);
-  color: var(--blanc);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(224, 137, 63, 0.35);
+.btn-resine {
+  background-color: var(--resine);
+  border: 1px solid var(--resine);
+  color: var(--papier-clair);
+}
+
+.btn-resine:hover,
+.btn-resine:focus-visible {
+  background-color: var(--resine-foncee);
+  border-color: var(--resine-foncee);
+  color: var(--papier-clair);
 }
 
 .btn-contour-clair {
-  border: 2px solid rgba(255, 255, 255, 0.85);
-  color: var(--blanc);
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 0.7rem 1.5rem;
-  transition: background-color var(--transition), color var(--transition);
+  background: transparent;
+  border: 1px solid var(--papier);
+  color: var(--papier);
 }
 
 .btn-contour-clair:hover,
-.btn-contour-clair:focus {
-  background-color: var(--blanc);
-  color: var(--pin-900);
+.btn-contour-clair:focus-visible {
+  background-color: var(--papier);
+  color: var(--pin-nuit);
 }
 
-.btn-pin {
-  background-color: var(--pin-700);
-  border-color: var(--pin-700);
-  color: var(--blanc);
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 0.7rem 1.5rem;
-  transition: background-color var(--transition), transform var(--transition);
+.btn-resine:active,
+.btn-contour-clair:active {
+  transform: translateY(1px);
 }
 
-.btn-pin:hover,
-.btn-pin:focus {
-  background-color: var(--pin-900);
-  color: var(--blanc);
-  transform: translateY(-2px);
+.btn-resine:disabled {
+  background-color: var(--encre-douce);
+  border-color: var(--encre-douce);
+  color: var(--papier-clair);
+  opacity: 1;
 }
 
-/* 3. Barre de navigation -------------------------------------------------- */
+/* Lien texte avec flèche qui avance au survol */
+.lien-fleche {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--encre);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+.lien-fleche i {
+  transition: transform var(--duree) var(--courbe);
+}
+
+.lien-fleche:hover {
+  color: var(--resine);
+}
+
+.lien-fleche:hover i {
+  transform: translateX(5px);
+}
+
+/* 4. En-tête et navigation ------------------------------------------------ */
 .bandeau-urgence {
-  background-color: var(--pin-900);
-  color: var(--sauge-200);
-  font-size: 0.875rem;
+  padding: 0.35rem 0;
+  background-color: var(--pin-nuit);
+  color: var(--sauge);
+  font-size: 0.82rem;
 }
 
 .bandeau-urgence a {
-  color: var(--blanc);
-  font-weight: 700;
+  color: var(--papier-clair);
+  font-weight: 600;
   text-decoration: none;
 }
 
 .navbar-pins {
-  background-color: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(8px);
-  transition: box-shadow var(--transition), padding var(--transition);
+  background-color: var(--papier);
+  border-bottom: 1px solid var(--filet);
+  transition: box-shadow var(--duree) var(--courbe);
 }
 
 /* Classe ajoutée par script.js quand on fait défiler la page */
 .navbar-pins.navbar-reduite {
-  box-shadow: 0 6px 20px rgba(18, 48, 31, 0.1);
+  box-shadow: 0 10px 24px -18px rgba(17, 38, 27, 0.55);
 }
 
 .navbar-pins .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.55rem;
   font-family: var(--police-titre);
-  font-weight: 700;
-  color: var(--pin-900);
-  line-height: 1.1;
+  font-size: 1.45rem;
+  line-height: 1.05;
+  color: var(--pin);
 }
 
 .navbar-pins .navbar-brand small {
   display: block;
   font-family: var(--police-texte);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--pin-500);
+  font-size: 0.72rem;
+  color: var(--encre-douce);
 }
 
 .logo-pin {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   flex-shrink: 0;
+}
+
+.logo-arbre {
+  fill: var(--pin);
+}
+
+.logo-resine {
+  fill: var(--resine);
 }
 
 .navbar-pins .nav-link {
   position: relative;
-  margin: 0 0.35rem;
-  font-weight: 700;
+  margin: 0 0.3rem;
+  font-weight: 500;
   color: var(--encre);
 }
 
-/* Soulignement animé au survol des liens du menu */
+/* Trait qui se dessine sous le lien survolé ou actif */
 .navbar-pins .nav-link::after {
   content: "";
   position: absolute;
   left: 0.5rem;
   right: 0.5rem;
   bottom: 0.2rem;
-  height: 2px;
-  background-color: var(--ambre-500);
+  height: 1px;
+  background-color: var(--resine);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform var(--transition);
+  transition: transform var(--duree) var(--courbe);
 }
 
 .navbar-pins .nav-link:hover::after,
@@ -226,113 +333,147 @@ img {
 }
 
 .navbar-pins .nav-link.active {
-  color: var(--pin-700);
+  color: var(--resine);
 }
 
-/* 4. Carrousel d'accueil et bandeaux de page ------------------------------ */
-.carrousel-accueil .carousel-item {
-  height: 88vh;
-  min-height: 520px;
+.navbar-toggler {
+  border-radius: 2px;
+  border-color: var(--encre);
+}
+
+/* 5. Hero et carrousel d'accueil ------------------------------------------ */
+.hero {
+  padding: clamp(1.75rem, 1rem + 2.5vw, 3.25rem) 0 var(--espace-section-bas);
+}
+
+.hero-lieu {
+  margin-bottom: 0.75rem;
+  color: var(--encre-douce);
+  font-size: 0.95rem;
+}
+
+.hero-titre {
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 3rem);
+  font-size: clamp(3.1rem, 0.6rem + 8.4vw, 7.9rem);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  color: var(--pin);
+}
+
+.hero-slogan {
+  margin-bottom: 1.25rem;
+  font-family: var(--police-titre);
+  font-style: italic;
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--resine);
+}
+
+.hero-texte {
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--encre);
 }
 
 .carrousel-accueil .carousel-item img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
-  /* léger zoom lent pour donner de la vie aux photos */
-  animation: zoomLent 14s ease-in-out infinite alternate;
 }
 
-/* Voile dégradé pour garantir la lisibilité du texte sur les photos */
-.carrousel-accueil .carousel-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(18, 48, 31, 0.85) 0%, rgba(18, 48, 31, 0.45) 55%, rgba(18, 48, 31, 0.1) 100%);
+/* Légende sous la photo, à la manière d'une figure de carnet */
+.legende-diapo {
+  min-height: 3.3rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+  color: var(--encre-douce);
 }
 
-.carrousel-accueil .carousel-caption {
-  z-index: 2;
-  top: 50%;
-  bottom: auto;
-  left: 8%;
+.repere {
+  margin-right: 0.4rem;
+  font-family: var(--police-titre);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--resine);
+}
+
+.carrousel-accueil .carousel-indicators {
+  top: 1rem;
   right: auto;
-  max-width: 640px;
-  transform: translateY(-50%);
-  text-align: left;
-}
-
-.carrousel-accueil .carousel-caption h1,
-.carrousel-accueil .carousel-caption h2 {
-  color: var(--blanc);
-  font-size: clamp(2.2rem, 5vw, 4rem);
-  line-height: 1.08;
-}
-
-.carrousel-accueil .carousel-caption p {
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.carrousel-accueil .slogan {
-  display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.15);
-  color: var(--blanc);
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  bottom: auto;
+  left: 1rem;
+  margin: 0;
+  justify-content: flex-start;
 }
 
 .carrousel-accueil .carousel-indicators [data-bs-target] {
-  width: 36px;
-  height: 4px;
-  border-radius: 2px;
+  width: 32px;
+  height: 3px;
+  margin: 0 3px;
+  border: 0;
+  background-color: var(--papier-clair);
 }
 
-@keyframes zoomLent {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
+/* Flèches carrées posées sur la photo */
+.carrousel-accueil .carousel-control-prev,
+.carrousel-accueil .carousel-control-next {
+  top: 1rem;
+  bottom: auto;
+  left: auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--papier);
+  color: var(--encre);
+  font-size: 1.1rem;
+  opacity: 1;
+  transition: background-color var(--duree) var(--courbe), color var(--duree) var(--courbe);
 }
 
-/* Bandeau en haut des pages intérieures (photo + titre) */
+.carrousel-accueil .carousel-control-prev {
+  right: 4rem;
+}
+
+.carrousel-accueil .carousel-control-next {
+  right: 1rem;
+}
+
+.carrousel-accueil .carousel-control-prev:hover,
+.carrousel-accueil .carousel-control-next:hover {
+  background-color: var(--resine);
+  color: var(--papier-clair);
+}
+
+/* 6. Bandeaux des pages intérieures --------------------------------------- */
 .bandeau-page {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  min-height: 46vh;
-  padding: 7rem 0 3.5rem;
-  background-size: cover;
-  background-position: center;
-  color: var(--blanc);
-  isolation: isolate;
-}
-
-.bandeau-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(0deg, rgba(18, 48, 31, 0.9) 0%, rgba(18, 48, 31, 0.35) 100%);
+  padding-top: clamp(1.5rem, 1rem + 2vw, 3rem);
 }
 
 .bandeau-page h1 {
-  color: var(--blanc);
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  margin-bottom: 0;
+  font-size: clamp(2.9rem, 1rem + 6vw, 6.25rem);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--pin);
 }
 
-.bandeau-page .breadcrumb-item,
-.bandeau-page .breadcrumb-item a,
-.bandeau-page .breadcrumb-item::before {
-  color: rgba(255, 255, 255, 0.85);
+.breadcrumb {
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb-item.active {
+  color: var(--encre-douce);
 }
 
 /* Une photo différente par page intérieure */
+.bandeau-photo {
+  height: clamp(13rem, 8rem + 20vw, 27rem);
+  margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  background-size: cover;
+  background-position: center;
+}
+
 .bandeau-apropos {
   background-image: url("../assets/img/pins-brume.jpg");
 }
@@ -345,172 +486,283 @@ img {
   background-image: url("../assets/img/chien-foret.jpg");
 }
 
-/* 5. Sections, cartes et effets au survol --------------------------------- */
+/* 7. Sections et en-têtes de section -------------------------------------- */
 .section {
-  padding: 6rem 0;
+  padding: var(--espace-section-haut) 0 var(--espace-section-bas);
 }
 
 .section-sable {
-  background-color: var(--sable-100);
+  background-color: var(--papier-fonce);
 }
 
-.section-sauge {
-  background-color: var(--sauge-200);
+/* En-tête en deux colonnes : le repère à gauche, le titre à droite */
+.entete-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 1rem 2rem;
+  margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--encre);
 }
 
-.titre-section {
-  max-width: 720px;
-  margin: 0 auto 3.5rem;
-  text-align: center;
+.entete-section h2 {
+  max-width: 19em;
+  margin-bottom: 0;
 }
 
-.titre-section h2 {
-  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+.entete-section .chapeau {
+  margin: 1.25rem 0 0;
 }
 
-/* Cartes de services (Bootstrap .card enrichies) */
+/* 8. Cartes de services et filtres ---------------------------------------- */
 .carte-service {
   height: 100%;
-  border: none;
-  border-radius: var(--rayon);
-  overflow: hidden;
-  box-shadow: var(--ombre);
-  transition: transform var(--transition), box-shadow var(--transition);
-}
-
-.carte-service:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--ombre-forte);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
 }
 
 .carte-service .cadre-image {
-  position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
 }
 
 .carte-service .cadre-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s var(--courbe);
 }
 
 .carte-service:hover .cadre-image img {
-  transform: scale(1.08);
-}
-
-/* Pastille d'icône posée à cheval sur la photo et le texte */
-.carte-service .pastille-icone {
-  position: absolute;
-  left: 1.25rem;
-  bottom: -1.4rem;
-  display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: var(--ambre-500);
-  color: var(--blanc);
-  font-size: 1.3rem;
-  box-shadow: 0 6px 14px rgba(224, 137, 63, 0.4);
-  z-index: 2;
+  transform: scale(1.04);
 }
 
 .carte-service .card-body {
-  padding: 2.1rem 1.5rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 0 0;
 }
 
 .carte-service .card-title {
-  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  transition: color var(--duree) var(--courbe);
 }
 
+.carte-service:hover .card-title {
+  color: var(--resine);
+}
+
+.carte-service .card-text {
+  color: var(--encre-douce);
+}
+
+/* Le prix se cale en bas de la carte, sous un filet */
 .carte-service .prix {
-  font-weight: 800;
-  color: var(--pin-700);
+  margin: auto 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--filet);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 .etiquette {
-  display: inline-block;
-  padding: 0.2rem 0.7rem;
-  border-radius: 999px;
-  background-color: var(--sauge-200);
-  color: var(--pin-700);
-  font-size: 0.78rem;
-  font-weight: 700;
+  margin-bottom: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--resine);
 }
 
-/* Boutons de filtre de la page Services */
+.carte-vedette .card-title {
+  font-size: clamp(2rem, 1.6rem + 1.2vw, 2.75rem);
+}
+
+.carte-vedette .card-text {
+  max-width: 32em;
+  font-size: 1.05rem;
+}
+
+/* Carte horizontale : photo à gauche, texte à droite */
+.carte-horizontale,
+.carte-large {
+  flex-direction: row;
+  gap: 1.5rem;
+  height: auto;
+}
+
+.carte-horizontale .cadre-image {
+  flex: 0 0 44%;
+  aspect-ratio: 4 / 3;
+}
+
+.carte-horizontale .card-body {
+  padding: 0;
+}
+
+/* Carte large du catalogue : grande photo et texte sur le côté */
+.carte-large {
+  height: 100%;
+}
+
+/* La photo suit la hauteur de la rangée, au lieu de l'imposer */
+.carte-large .cadre-image {
+  position: relative;
+  flex: 0 0 60%;
+  aspect-ratio: auto;
+}
+
+.carte-large .cadre-image img {
+  position: absolute;
+  inset: 0;
+}
+
+.carte-large .card-body {
+  padding: 0;
+}
+
+.carte-large .card-title {
+  font-size: clamp(1.9rem, 1.5rem + 1.1vw, 2.5rem);
+}
+
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin-top: 1.5rem;
+}
+
 .filtres .btn {
-  margin: 0.25rem;
-  border-radius: 999px;
-  font-weight: 700;
-  border: 2px solid var(--pin-700);
-  color: var(--pin-700);
+  padding: 0.3rem 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--encre-douce);
+  font-weight: 500;
 }
 
-.filtres .btn.active,
 .filtres .btn:hover {
-  background-color: var(--pin-700);
-  color: var(--blanc);
+  color: var(--resine);
 }
 
-/* Bloc image + texte (deux colonnes) */
-.image-arrondie {
-  border-radius: var(--rayon);
-  box-shadow: var(--ombre);
-  object-fit: cover;
-  width: 100%;
+.filtres .btn.active {
+  border-bottom-color: var(--resine);
+  background: transparent;
+  color: var(--resine);
 }
 
+/* 9. Photos superposées, listes, étapes ------------------------------------ */
 .duo-images {
   position: relative;
-  padding-bottom: 3rem;
+  padding-bottom: 14%;
+}
+
+.duo-images .image-principale {
+  width: 86%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
 .duo-images .image-secondaire {
   position: absolute;
-  right: -1rem;
+  right: 0;
   bottom: 0;
-  width: 48%;
-  border: 6px solid var(--blanc);
-  border-radius: var(--rayon);
-  box-shadow: var(--ombre-forte);
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  outline: 8px solid var(--papier-fonce);
+  box-shadow: var(--ombre);
 }
 
-.liste-coches {
+.image-simple {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* Colonne de photos à largeurs variées */
+.pile-photos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+
+.pile-photos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pile-photos img:nth-child(1) {
+  grid-column: 1 / -1;
+  aspect-ratio: 3 / 2;
+}
+
+.pile-photos img:nth-child(2) {
+  grid-column: 1 / 4;
+  aspect-ratio: 4 / 5;
+}
+
+.pile-photos img:nth-child(3) {
+  grid-column: 4 / -1;
+  aspect-ratio: 4 / 5;
+}
+
+.liste-filets {
   list-style: none;
   padding-left: 0;
 }
 
-.liste-coches li {
-  position: relative;
-  padding-left: 2rem;
-  margin-bottom: 0.7rem;
+.liste-filets li {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--filet);
 }
 
-.liste-coches li::before {
-  content: "\F26E"; /* icône « check-circle-fill » de Bootstrap Icons */
-  font-family: "bootstrap-icons";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--pin-500);
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 2rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: etape;
 }
 
-/* 6. Galerie photo -------------------------------------------------------- */
+.etapes li {
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--filet);
+  counter-increment: etape;
+}
+
+.etapes li::before {
+  content: counter(etape);
+  font-family: var(--police-titre);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--resine);
+}
+
+.etapes h3 {
+  margin: 0.15rem 0 0.35rem;
+}
+
+.etapes p {
+  margin: 0;
+  color: var(--encre-douce);
+}
+
+/* 10. Galerie photo et visionneuse ---------------------------------------- */
 .galerie {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 220px;
-  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(150px, 15vw, 230px);
+  gap: 0.5rem;
 }
 
 .galerie figure {
   position: relative;
   margin: 0;
   overflow: hidden;
-  border-radius: var(--rayon);
   cursor: zoom-in;
 }
 
@@ -528,29 +780,35 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease, filter 0.6s ease;
+  transition: transform 0.7s var(--courbe);
 }
 
 .galerie figcaption {
   position: absolute;
   inset: auto 0 0 0;
-  padding: 1.5rem 1rem 0.8rem;
-  background: linear-gradient(0deg, rgba(18, 48, 31, 0.85), transparent);
-  color: var(--blanc);
-  font-weight: 700;
+  padding: 2rem 0.9rem 0.65rem;
+  background: linear-gradient(0deg, rgba(17, 38, 27, 0.88), transparent);
+  color: var(--papier-clair);
+  font-size: 0.92rem;
   transform: translateY(100%);
-  transition: transform var(--transition);
+  transition: transform var(--duree) var(--courbe);
 }
 
 .galerie figure:hover img,
 .galerie figure:focus-within img {
-  transform: scale(1.07);
-  filter: saturate(1.15);
+  transform: scale(1.04);
 }
 
 .galerie figure:hover figcaption,
-.galerie figure:focus-within figcaption {
+.galerie figure:focus figcaption {
   transform: translateY(0);
+}
+
+/* Sur écran tactile, sans survol, les légendes restent visibles */
+@media (hover: none) {
+  .galerie figcaption {
+    transform: none;
+  }
 }
 
 /* Visionneuse plein écran de la galerie (ouverte par script.js) */
@@ -563,28 +821,46 @@ img {
   max-height: 82vh;
   width: 100%;
   object-fit: contain;
-  border-radius: var(--rayon);
 }
 
-/* 7. Équipe, valeurs, chronologie ----------------------------------------- */
-.carte-equipe {
-  text-align: center;
-  border: none;
-  border-radius: var(--rayon);
-  background: var(--blanc);
-  box-shadow: var(--ombre);
-  overflow: hidden;
-  transition: transform var(--transition);
-  height: 100%;
+/* 11. Chronologie, valeurs, équipe ----------------------------------------- */
+.chronologie {
+  list-style: none;
+  padding-left: 0;
 }
 
-.carte-equipe:hover {
-  transform: translateY(-6px);
+.chronologie li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--filet);
+}
+
+.chronologie .annee {
+  font-family: var(--police-titre);
+  font-style: italic;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--resine);
+}
+
+.carte-valeur img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.carte-valeur p {
+  color: var(--encre-douce);
 }
 
 .carte-equipe .photo {
-  aspect-ratio: 1 / 1;
   overflow: hidden;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 1rem;
 }
 
 .carte-equipe .photo img {
@@ -592,266 +868,372 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: top;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s var(--courbe);
 }
 
 .carte-equipe:hover .photo img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .carte-equipe .role {
-  color: var(--ambre-600);
-  font-weight: 700;
-  font-size: 0.9rem;
+  margin: 0.25rem 0 0.6rem;
+  color: var(--resine);
+  font-weight: 500;
+  font-size: 0.92rem;
 }
 
-.carte-valeur {
-  position: relative;
-  height: 100%;
-  min-height: 320px;
-  border-radius: var(--rayon);
-  overflow: hidden;
-  color: var(--blanc);
-  display: flex;
-  align-items: flex-end;
+.carte-equipe p:last-child {
+  color: var(--encre-douce);
 }
 
-.carte-valeur img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.carte-valeur::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(18, 48, 31, 0.92) 10%, rgba(18, 48, 31, 0.15) 70%);
-}
-
-.carte-valeur .contenu {
-  position: relative;
-  z-index: 1;
-  padding: 1.5rem;
-}
-
-.carte-valeur h3 {
-  color: var(--blanc);
-  font-size: 1.35rem;
-}
-
-.carte-valeur:hover img {
-  transform: scale(1.08);
-}
-
-.chronologie {
-  position: relative;
-  list-style: none;
-  padding-left: 2rem;
-  border-left: 3px solid var(--sauge-200);
-}
-
-.chronologie li {
-  position: relative;
-  margin-bottom: 1.8rem;
-}
-
-.chronologie li::before {
-  content: "";
-  position: absolute;
-  left: -2.65rem;
-  top: 0.35rem;
-  width: 1.1rem;
-  height: 1.1rem;
-  border-radius: 50%;
-  background-color: var(--ambre-500);
-  border: 3px solid var(--blanc);
-  box-shadow: 0 0 0 3px var(--sauge-200);
-}
-
-.chronologie .annee {
-  font-family: var(--police-titre);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--pin-700);
-}
-
-/* 8. Témoignages, chiffres clés, appel à l'action ------------------------- */
-.chiffre {
-  font-family: var(--police-titre);
-  font-size: clamp(2.4rem, 4vw, 3.2rem);
-  font-weight: 700;
-  color: var(--blanc);
-  line-height: 1;
-}
-
+/* 12. Chiffres clés, témoignages, appel à l'action ------------------------- */
 .bande-chiffres {
-  background: linear-gradient(rgba(18, 48, 31, 0.86), rgba(18, 48, 31, 0.86)), url("../assets/img/pins-ciel.jpg") center / cover;
-  color: var(--sauge-200);
-  padding: 4.5rem 0;
+  padding: clamp(3.5rem, 3rem + 3vw, 6rem) 0;
+  background: linear-gradient(rgba(17, 38, 27, 0.84), rgba(17, 38, 27, 0.84)), url("../assets/img/pins-ciel.jpg") center / cover;
+  color: var(--sauge);
 }
 
-.carte-temoignage {
-  height: 100%;
-  padding: 2rem;
-  border-radius: var(--rayon);
-  background: var(--blanc);
-  box-shadow: var(--ombre);
-  transition: transform var(--transition);
+.chiffre {
+  margin-bottom: 0.35rem;
+  font-family: var(--police-titre);
+  font-size: clamp(2.75rem, 1.75rem + 3.2vw, 4.75rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--papier-clair);
 }
 
-.carte-temoignage:hover {
-  transform: translateY(-5px);
+.temoignage {
+  margin: 0;
 }
 
-.carte-temoignage img {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
+.temoignage blockquote {
+  margin-bottom: 1.1rem;
+  font-family: var(--police-titre);
+  font-size: 1.45rem;
+  line-height: 1.25;
+}
+
+.temoignage-vedette blockquote {
+  font-size: clamp(2rem, 1.5rem + 2vw, 3.2rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--pin);
+}
+
+.temoignage figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--encre-douce);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.temoignage figcaption strong {
+  color: var(--encre);
+  font-weight: 600;
+}
+
+.temoignage figcaption img {
+  width: 3.25rem;
+  height: 3.25rem;
   object-fit: cover;
-}
-
-.etoiles {
-  color: var(--ambre-500);
 }
 
 .appel-action {
-  position: relative;
-  padding: 6rem 0;
-  background: linear-gradient(90deg, rgba(18, 48, 31, 0.92), rgba(31, 77, 58, 0.6)), url("../assets/img/hero-pins.jpg") center / cover;
-  color: var(--blanc);
+  padding: clamp(5rem, 4rem + 6vw, 9rem) 0;
+  background: linear-gradient(90deg, rgba(17, 38, 27, 0.92), rgba(17, 38, 27, 0.45)), url("../assets/img/hero-pins.jpg") center / cover;
+  color: var(--papier);
 }
 
 .appel-action h2 {
-  color: var(--blanc);
+  max-width: 14em;
+  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
+  font-weight: 300;
+  letter-spacing: -0.025em;
 }
 
-/* 9. Formulaire de contact ------------------------------------------------ */
-.carte-formulaire {
-  padding: 2.5rem;
-  border-radius: var(--rayon);
-  background: var(--blanc);
-  box-shadow: var(--ombre-forte);
+.appel-action .chapeau {
+  margin-bottom: 1.75rem;
+  color: var(--papier);
 }
 
-.carte-formulaire .form-control,
-.carte-formulaire .form-select {
-  padding: 0.8rem 1rem;
-  border-radius: 0.7rem;
-  border-color: #cfdcd3;
+/* 13. Tarifs et questions fréquentes -------------------------------------- */
+.table-tarifs {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--encre);
+  --bs-table-border-color: var(--filet);
+  margin-bottom: 0;
+  font-variant-numeric: tabular-nums;
 }
 
-.carte-formulaire .form-control:focus,
-.carte-formulaire .form-select:focus {
-  border-color: var(--pin-500);
-  box-shadow: 0 0 0 0.25rem rgba(47, 122, 87, 0.2);
+.table-tarifs caption {
+  color: var(--encre-douce);
+  caption-side: bottom;
+}
+
+.table-tarifs thead th {
+  border-bottom: 1px solid var(--encre);
+  font-weight: 500;
+  color: var(--encre-douce);
+}
+
+.table-tarifs tbody th {
+  font-family: var(--police-titre);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.table-tarifs td,
+.table-tarifs th {
+  padding: 0.9rem 0.75rem 0.9rem 0;
+}
+
+.table-tarifs tbody tr {
+  transition: background-color var(--duree) var(--courbe);
+}
+
+.table-tarifs tbody tr:hover {
+  background-color: var(--papier-fonce);
+}
+
+.accordion {
+  --bs-accordion-bg: transparent;
+  --bs-accordion-color: var(--encre);
+  --bs-accordion-border-color: var(--filet);
+  --bs-accordion-btn-color: var(--encre);
+  --bs-accordion-active-color: var(--resine);
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-btn-padding-x: 0;
+  --bs-accordion-body-padding-x: 0;
+  border-top: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
+}
+
+.accordion-button {
+  font-family: var(--police-titre);
+  font-size: 1.3rem;
+}
+
+.accordion-button:focus-visible {
+  outline: 2px solid var(--resine);
+  outline-offset: 2px;
+}
+
+/* 14. Formulaire de contact et coordonnées --------------------------------- */
+.formulaire-contact .form-label {
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.formulaire-contact .form-control,
+.formulaire-contact .form-select {
+  padding: 0.75rem 0.9rem;
+  border-color: var(--bordure-champ);
+  border-radius: 2px;
+  background-color: var(--papier-clair);
+  transition: border-color var(--duree) var(--courbe), box-shadow var(--duree) var(--courbe);
+}
+
+.formulaire-contact .form-control:hover,
+.formulaire-contact .form-select:hover {
+  border-color: var(--encre);
+}
+
+.formulaire-contact .form-control:focus,
+.formulaire-contact .form-select:focus {
+  border-color: var(--pin);
+  box-shadow: 0 0 0 3px rgba(30, 63, 47, 0.2);
+}
+
+.formulaire-contact .form-check-input {
+  border-color: var(--bordure-champ);
+  border-radius: 2px;
+}
+
+.formulaire-contact .form-check-input:checked {
+  background-color: var(--pin);
+  border-color: var(--pin);
+}
+
+.mention-formulaire {
+  margin: 0.75rem 0 0;
+  font-size: 0.86rem;
+  color: var(--encre-douce);
+}
+
+/* Le champ piège est sorti de l'écran plutôt que masqué : les robots le voient encore */
+.champ-piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Résultat de l'envoi */
+.message-formulaire {
+  margin-top: 1.5rem;
+  padding: 1rem 1.15rem;
+  border-left: 3px solid;
+}
+
+.message-succes {
+  background-color: var(--succes-fond);
+  border-color: var(--pin);
+}
+
+.message-echec {
+  background-color: var(--erreur-fond);
+  border-color: var(--erreur);
+  color: var(--erreur);
 }
 
 .carte-coordonnees {
-  height: 100%;
-  padding: 2.5rem;
-  border-radius: var(--rayon);
-  background: linear-gradient(rgba(18, 48, 31, 0.9), rgba(18, 48, 31, 0.93)), url("../assets/img/pins-ciel.jpg") center / cover;
-  color: var(--sauge-200);
+  position: sticky;
+  top: 7.5rem;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  background-color: var(--pin);
+  color: var(--papier);
 }
 
-.carte-coordonnees h2,
-.carte-coordonnees h3 {
-  color: var(--blanc);
+.carte-coordonnees h2 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.9rem, 1.6rem + 1vw, 2.4rem);
 }
 
 .carte-coordonnees a {
-  color: var(--blanc);
+  color: var(--papier-clair);
 }
 
-.ligne-contact {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1.4rem;
+.carte-coordonnees a:hover {
+  color: var(--resine-claire);
 }
 
-.ligne-contact i {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 2.8rem;
-  height: 2.8rem;
+.liste-contact dt {
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--filet-clair);
+  color: var(--sauge);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.liste-contact dd {
+  margin-bottom: 0.9rem;
+}
+
+/* Statut d'ouverture calculé par script.js */
+.statut-ouverture {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  background-color: var(--papier);
+  color: var(--pin-nuit);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.statut-ouverture::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.45rem;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.12);
-  color: var(--ambre-500);
-  font-size: 1.2rem;
+  background-color: var(--resine);
+}
+
+.statut-ouverture.est-ouvert::before {
+  background-color: #2f7a4d;
 }
 
 .carte-plan {
+  display: block;
   width: 100%;
-  min-height: 360px;
-  border: 0;
-  border-radius: var(--rayon);
-  box-shadow: var(--ombre);
+  height: 100%;
+  min-height: 420px;
+  border: 1px solid var(--filet);
 }
 
-/* 10. Pied de page -------------------------------------------------------- */
-.pied-page {
-  background-color: var(--pin-900);
-  color: rgba(216, 230, 220, 0.85);
-  padding: 4.5rem 0 1.5rem;
+.photos-acces {
+  display: grid;
+  gap: 0.75rem;
+  height: 100%;
 }
 
-.pied-page h2,
-.pied-page h3 {
-  color: var(--blanc);
-  font-size: 1.15rem;
+.photos-acces img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
 }
 
-.pied-page a {
-  color: rgba(216, 230, 220, 0.85);
-  text-decoration: none;
-  transition: color var(--transition), padding-left var(--transition);
+/* 15. Ruban de photos et pied de page -------------------------------------- */
+.ruban-photos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
-.pied-page ul a:hover {
-  color: var(--blanc);
-  padding-left: 0.3rem;
-}
-
-.pied-page .reseaux a {
-  display: inline-grid;
-  place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-right: 0.4rem;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.08);
-  transition: background-color var(--transition), transform var(--transition);
-}
-
-.pied-page .reseaux a:hover {
-  background-color: var(--ambre-500);
-  color: var(--blanc);
-  transform: translateY(-3px);
-}
-
-.pied-page .mini-galerie img {
+.ruban-photos img {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 0.5rem;
-  opacity: 0.85;
-  transition: opacity var(--transition);
 }
 
-.pied-page .mini-galerie img:hover {
-  opacity: 1;
+.pied-page {
+  padding: clamp(3.5rem, 3rem + 3vw, 6rem) 0 1.5rem;
+  background-color: var(--pin-nuit);
+  color: var(--sauge);
+}
+
+.pied-page .devise {
+  max-width: 11em;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.2rem, 1.8rem + 1.8vw, 3.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--papier);
+}
+
+.pied-page h3 {
+  margin-bottom: 0.75rem;
+  font-family: var(--police-texte);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--papier);
+}
+
+.pied-page a {
+  color: var(--sauge);
+  text-underline-offset: 0.2em;
+  transition: color var(--duree) var(--courbe);
+}
+
+.pied-page a:hover {
+  color: var(--papier-clair);
+}
+
+.pied-page ul a {
+  text-decoration: none;
+}
+
+.pied-page ul a:hover {
+  text-decoration: underline;
 }
 
 .pied-page .bas {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.85rem;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--filet-clair);
+  font-size: 0.84rem;
 }
 
 /* Bouton « retour en haut » (affiché par script.js) */
@@ -859,17 +1241,21 @@ img {
   position: fixed;
   left: 1.25rem;
   bottom: 1.25rem;
-  z-index: 1030;
-  width: 3rem;
-  height: 3rem;
-  border: none;
-  border-radius: 50%;
-  background-color: var(--pin-700);
-  color: var(--blanc);
-  box-shadow: var(--ombre);
+  z-index: var(--z-haut);
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--pin);
+  border-radius: 2px;
+  background-color: var(--papier);
+  color: var(--pin);
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition), visibility var(--transition);
+  transition: opacity var(--duree) var(--courbe), visibility var(--duree), background-color var(--duree) var(--courbe), color var(--duree) var(--courbe);
+}
+
+.retour-haut:hover {
+  background-color: var(--pin);
+  color: var(--papier);
 }
 
 .retour-haut.visible {
@@ -877,157 +1263,128 @@ img {
   visibility: visible;
 }
 
-/* 11. Chatbot (bulle flottante) ------------------------------------------- */
+/* 16. Chatbot (bulle flottante) -------------------------------------------- */
 .chatbot-bouton {
   position: fixed;
   right: 1.25rem;
   bottom: 1.25rem;
-  z-index: 1050;
+  z-index: var(--z-chatbot);
   display: grid;
   place-items: center;
-  width: 4rem;
-  height: 4rem;
+  width: 3.75rem;
+  height: 3.75rem;
   border: none;
   border-radius: 50%;
-  background-color: var(--ambre-500);
-  color: var(--blanc);
-  font-size: 1.7rem;
-  box-shadow: 0 10px 25px rgba(224, 137, 63, 0.45);
-  transition: transform var(--transition), background-color var(--transition);
+  background-color: var(--resine);
+  color: var(--papier-clair);
+  font-size: 1.5rem;
+  box-shadow: var(--ombre);
+  transition: transform var(--duree) var(--courbe), background-color var(--duree) var(--courbe);
 }
 
 .chatbot-bouton:hover {
-  transform: scale(1.08);
-  background-color: var(--ambre-600);
-}
-
-/* Halo pulsé pour attirer l'œil sur l'assistant */
-.chatbot-bouton::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid var(--ambre-500);
-  animation: pulsation 2.4s ease-out infinite;
-}
-
-@keyframes pulsation {
-  from {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  to {
-    transform: scale(1.6);
-    opacity: 0;
-  }
+  transform: scale(1.06);
+  background-color: var(--resine-foncee);
 }
 
 .chatbot-bulle-accueil {
   position: fixed;
   right: 1.25rem;
-  bottom: 6rem;
-  z-index: 1050;
-  max-width: 260px;
-  padding: 0.8rem 1rem;
-  border-radius: 1rem 1rem 0.2rem 1rem;
-  background: var(--blanc);
-  box-shadow: var(--ombre-forte);
+  bottom: 5.75rem;
+  z-index: var(--z-chatbot);
+  max-width: 250px;
+  padding: 0.7rem 0.95rem;
+  background: var(--papier-clair);
+  border: 1px solid var(--filet);
+  box-shadow: var(--ombre);
   font-size: 0.92rem;
+  cursor: pointer;
 }
 
 .chatbot-fenetre {
   position: fixed;
   right: 1.25rem;
-  bottom: 6rem;
-  z-index: 1060;
+  bottom: 5.75rem;
+  z-index: var(--z-chatbot);
   display: flex;
   flex-direction: column;
   width: 380px;
   max-width: calc(100vw - 2rem);
   height: 560px;
-  max-height: calc(100vh - 8rem);
-  border-radius: 1.2rem;
-  background: var(--blanc);
-  box-shadow: 0 25px 60px rgba(18, 48, 31, 0.3);
+  max-height: calc(100dvh - 7.5rem);
+  background: var(--papier-clair);
+  border: 1px solid var(--filet);
+  box-shadow: var(--ombre);
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(20px) scale(0.97);
-  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+  transform: translateY(16px);
+  transition: opacity var(--duree) var(--courbe), transform var(--duree) var(--courbe), visibility var(--duree);
 }
 
 .chatbot-fenetre.ouverte {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
 
 .chatbot-entete {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem;
-  background: linear-gradient(120deg, var(--pin-900), var(--pin-700));
-  color: var(--blanc);
+  padding: 0.9rem 1rem;
+  background-color: var(--pin);
+  color: var(--papier);
+}
+
+.chatbot-entete strong {
+  font-family: var(--police-titre);
+  font-size: 1.3rem;
+  font-weight: 400;
 }
 
 .chatbot-entete img {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--ambre-500);
 }
 
 .chatbot-entete .statut {
   font-size: 0.78rem;
-  color: var(--sauge-200);
-}
-
-.chatbot-entete .statut::before {
-  content: "";
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  margin-right: 0.35rem;
-  border-radius: 50%;
-  background-color: #6fdc8c;
+  color: var(--sauge);
 }
 
 .chatbot-messages {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-  background-color: var(--sable-100);
+  background-color: var(--papier);
 }
 
 .message {
   max-width: 85%;
   margin-bottom: 0.75rem;
-  padding: 0.65rem 0.95rem;
-  border-radius: 1rem;
+  padding: 0.6rem 0.9rem;
   font-size: 0.93rem;
   line-height: 1.5;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .message-assistant {
-  background: var(--blanc);
-  border-bottom-left-radius: 0.25rem;
-  box-shadow: 0 2px 6px rgba(18, 48, 31, 0.08);
+  background: var(--papier-clair);
+  border: 1px solid var(--filet);
 }
 
 .message-visiteur {
   margin-left: auto;
-  background: var(--pin-700);
-  color: var(--blanc);
-  border-bottom-right-radius: 0.25rem;
+  background: var(--pin);
+  color: var(--papier);
 }
 
 .message-erreur {
-  background: #fdecea;
-  color: #8a1c13;
+  background: var(--erreur-fond);
+  color: var(--erreur);
 }
 
 /* Trois points animés pendant que l'assistant « écrit » */
@@ -1037,7 +1394,7 @@ img {
   height: 0.45rem;
   margin: 0 0.1rem;
   border-radius: 50%;
-  background-color: var(--gris-texte);
+  background-color: var(--encre-douce);
   animation: rebond 1.2s infinite ease-in-out;
 }
 
@@ -1065,41 +1422,40 @@ img {
   flex-wrap: wrap;
   gap: 0.4rem;
   padding: 0 1rem 0.6rem;
-  background-color: var(--sable-100);
+  background-color: var(--papier);
 }
 
 .chatbot-suggestions button {
-  border: 1px solid var(--pin-500);
-  border-radius: 999px;
-  background: var(--blanc);
-  color: var(--pin-700);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--pin);
+  background: transparent;
+  color: var(--pin);
   font-size: 0.8rem;
-  font-weight: 700;
-  padding: 0.3rem 0.75rem;
-  transition: background-color var(--transition), color var(--transition);
+  font-weight: 500;
+  transition: background-color var(--duree) var(--courbe), color var(--duree) var(--courbe);
 }
 
 .chatbot-suggestions button:hover {
-  background-color: var(--pin-700);
-  color: var(--blanc);
+  background-color: var(--pin);
+  color: var(--papier);
 }
 
 .chatbot-formulaire {
   display: flex;
   gap: 0.5rem;
   padding: 0.75rem;
-  border-top: 1px solid #e3ebe5;
+  border-top: 1px solid var(--filet);
 }
 
 .chatbot-formulaire input {
   flex: 1;
-  border-radius: 999px;
+  border-color: var(--bordure-champ);
+  border-radius: 2px;
 }
 
 .chatbot-formulaire button {
   width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
+  height: 2.375rem;
   padding: 0;
 }
 
@@ -1107,21 +1463,34 @@ img {
   margin: 0;
   padding: 0 0.75rem 0.6rem;
   font-size: 0.7rem;
-  color: var(--gris-texte);
+  color: var(--encre-douce);
   text-align: center;
 }
 
-/* 12. Apparition au défilement -------------------------------------------- */
+/* 17. Apparition au défilement --------------------------------------------- */
 /* L'état caché n'est appliqué que si JavaScript est actif (classe js sur <html>) */
 .js .apparition {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--courbe), transform 0.7s var(--courbe);
 }
 
 .js .apparition.visible {
   opacity: 1;
   transform: none;
+}
+
+/* Léger décalage en cascade entre colonnes voisines */
+.js .row > .apparition:nth-child(2) {
+  transition-delay: 0.08s;
+}
+
+.js .row > .apparition:nth-child(3) {
+  transition-delay: 0.16s;
+}
+
+.js .row > .apparition:nth-child(4) {
+  transition-delay: 0.24s;
 }
 
 /* Respect des préférences « réduire les animations » */
@@ -1131,6 +1500,7 @@ img {
   *::after {
     animation: none !important;
     transition: none !important;
+    scroll-behavior: auto !important;
   }
 
   .js .apparition {
@@ -1139,73 +1509,107 @@ img {
   }
 }
 
-/* 13. Media queries (responsive) ------------------------------------------ */
+/* 18. Media queries (responsive) ------------------------------------------- */
+
+/* Grands écrans : les valeurs descendent en escalier */
+@media (min-width: 992px) {
+  .colonnes-decalees > :nth-child(even) {
+    margin-top: 4rem;
+  }
+}
 
 /* Tablettes et petits écrans */
 @media (max-width: 991.98px) {
-  .section {
-    padding: 4.5rem 0;
-  }
-
   .navbar-pins .navbar-collapse {
     padding: 1rem 0;
+  }
+
+  .navbar-pins .nav-link {
+    margin: 0;
   }
 
   .navbar-pins .nav-link::after {
     display: none;
   }
 
+  .entete-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .carte-large {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .carte-large .cadre-image {
+    flex: none;
+    aspect-ratio: 3 / 2;
+  }
+
+  .carte-large .card-body {
+    padding-top: 1.1rem;
+  }
+
+  .carte-coordonnees {
+    position: static;
+  }
+
   .galerie {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 200px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: clamp(140px, 30vw, 240px);
+  }
+
+  .ruban-photos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .photos-acces {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+  }
+
+  .carte-plan {
+    height: 360px;
+    min-height: 0;
   }
 
   .duo-images .image-secondaire {
-    right: 0;
+    outline-width: 6px;
   }
 }
 
 /* Téléphones */
 @media (max-width: 575.98px) {
-  .carrousel-accueil .carousel-item {
-    height: 78vh;
-    min-height: 480px;
+  .etapes {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .carrousel-accueil .carousel-caption {
-    left: 1rem;
-    right: 1rem;
+  .carte-horizontale {
+    flex-direction: column;
+    gap: 0;
   }
 
-  .carrousel-accueil .carousel-caption p {
-    font-size: 1rem;
+  .carte-horizontale .cadre-image {
+    flex: none;
+    aspect-ratio: 3 / 2;
   }
 
-  .bandeau-page {
-    min-height: 38vh;
-    padding: 6rem 0 2.5rem;
+  .carte-horizontale .card-body {
+    padding-top: 1.1rem;
   }
 
-  .galerie {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 150px;
-    gap: 0.6rem;
+  .chronologie li {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
   }
 
-  .galerie .grande {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .carte-formulaire,
-  .carte-coordonnees {
-    padding: 1.6rem;
+  .navbar-pins .navbar-brand {
+    font-size: 1.25rem;
   }
 
   .chatbot-fenetre {
     right: 1rem;
     bottom: 5.5rem;
-    height: calc(100vh - 7rem);
+    height: calc(100dvh - 7rem);
   }
 
   .chatbot-bulle-accueil {

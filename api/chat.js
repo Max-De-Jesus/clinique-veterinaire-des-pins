@@ -3,6 +3,7 @@
 // La clé API est lue dans la variable d'environnement GEMINI_API_KEY : elle n'est jamais envoyée au navigateur.
 
 import { CONTEXTE_CLINIQUE } from './_contexte.js';
+import { json, adresseIP, creerLimiteur } from './_commun.js';
 
 const MODELE_PAR_DEFAUT = 'gemini-2.5-flash';
 const MESSAGES_MAX = 12;           // nombre de messages d'historique acceptés
@@ -10,28 +11,7 @@ const LONGUEUR_MESSAGE_MAX = 500;  // caractères par message
 const DELAI_API_MS = 20000;        // délai maximal d'attente de Gemini
 const REQUETES_PAR_MINUTE = 15;    // limite par adresse IP (au mieux, par instance)
 
-const compteursIP = new Map();
-
-/** Réponse JSON avec les en-têtes de sécurité de base. */
-function json(statut, corps) {
-  return new Response(JSON.stringify(corps), {
-    status: statut,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store',
-      'X-Content-Type-Options': 'nosniff'
-    }
-  });
-}
-
-/** Limitation de débit simple en mémoire (réinitialisée à chaque démarrage d'instance). */
-function depasseLimite(ip) {
-  const maintenant = Date.now();
-  const recentes = (compteursIP.get(ip) || []).filter((t) => maintenant - t < 60000);
-  compteursIP.set(ip, [...recentes, maintenant]);
-  if (compteursIP.size > 5000) compteursIP.clear(); // borne la mémoire
-  return recentes.length >= REQUETES_PAR_MINUTE;
-}
+const depasseLimite = creerLimiteur(REQUETES_PAR_MINUTE, 60000);
 
 /**
  * Valide et convertit l'historique reçu au format attendu par Gemini.
@@ -63,8 +43,7 @@ export async function POST(request) {
     return json(503, { erreur: 'L\'assistante n\'est pas encore configurée. Appelez-nous au 05 58 00 12 34.' });
   }
 
-  const ip = (request.headers.get('x-forwarded-for') || 'inconnue').split(',')[0].trim();
-  if (depasseLimite(ip)) {
+  if (depasseLimite(adresseIP(request))) {
     return json(429, { erreur: 'Vous envoyez beaucoup de messages : patientez une minute, puis réessayez.' });
   }
 

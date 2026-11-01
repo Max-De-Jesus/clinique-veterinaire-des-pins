@@ -1,6 +1,6 @@
 # ADR 0001 — Site statique Bootstrap + fonction serveur Vercel pour le chatbot
 
-- **Statut** : accepté
+- **Statut** : accepté ; point 5 remplacé par l'ADR 0002 le 2026-11-01
 - **Date** : 2026-10-30
 
 ## Contexte
@@ -18,13 +18,13 @@ Le sujet impose HTML et CSS, avec Bootstrap 5 encouragé. Le CSS doit être dans
    - délai maximal de 20 s ;
    - erreurs de Gemini masquées ;
    - CSP dans `vercel.json`.
-5. **Formulaire de contact** : il est seulement validé côté client, car aucun service d'envoi d'e-mail n'est branché. Le message de confirmation le dit honnêtement.
+5. ~~**Formulaire de contact** : il est seulement validé côté client, car aucun service d'envoi d'e-mail n'est branché. Le message de confirmation le dit honnêtement.~~ Remplacé : le formulaire envoie un e-mail réel via `/api/contact` (ADR 0002).
 
 ## Alternatives écartées
 
 - **Appel direct à Gemini depuis le navigateur** : la clé serait exposée, ce que le sujet interdit.
 - **Next.js ou un autre framework** : hors du périmètre pédagogique (HTML/CSS).
-- **Service d'e-mail (Resend, Formspree…)** : il faudrait un compte et une clé tiers. Cette décision est laissée au propriétaire.
+- **Service d'e-mail (Resend, Formspree…)** : écarté à l'origine, faute de décision du propriétaire. Il a depuis choisi Resend (ADR 0002).
 
 ## Conséquences
 

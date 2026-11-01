@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact &amp; rendez-vous | Clinique Vétérinaire des Pins</title>
   <meta name="description" content="Contactez la Clinique Vétérinaire des Pins à Mimizan : formulaire, téléphone, e-mail, horaires et plan d'accès. Urgences 24 h/24.">
+  <meta name="theme-color" content="#f5f0e6">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
-  <!-- Polices Google : Fraunces (titres) et Nunito Sans (texte) -->
+  <!-- Polices Google : Newsreader (titres) et Instrument Sans (texte) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Nunito+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&amp;display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 et Bootstrap Icons (CDN avec contrôle d'intégrité) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -24,11 +25,11 @@
   <a class="lien-evitement" href="#contenu">Aller au contenu</a>
 
   <!-- ===== En-tête : bandeau d'urgence + navigation responsive ===== -->
-  <header class="sticky-top">
-    <div class="bandeau-urgence py-2">
-      <div class="container d-flex flex-wrap justify-content-between gap-2">
-        <span><i class="bi bi-clock-history me-1" aria-hidden="true"></i> Lun–Ven 8 h–19 h · Sam 9 h–17 h</span>
-        <span><i class="bi bi-telephone-fill me-1" aria-hidden="true"></i> Urgences 24 h/24 : <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a></span>
+  <header class="sticky-top entete-site">
+    <div class="bandeau-urgence">
+      <div class="container d-flex flex-wrap justify-content-between gap-1">
+        <span>Lun–ven 8 h–19 h · sam 9 h–17 h</span>
+        <span>Urgences 24 h/24 : <a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a></span>
       </div>
     </div>
 
@@ -36,11 +37,10 @@
       <div class="container">
         <a class="navbar-brand" href="index.html">
           <svg class="logo-pin" viewBox="0 0 48 48" aria-hidden="true">
-            <circle cx="24" cy="24" r="24" fill="#1f4d3a"/>
-            <path d="M24 8 L33 21 H28 L35 31 H27 V39 H21 V31 H13 L20 21 H15 Z" fill="#d8e6dc"/>
-            <circle cx="36" cy="36" r="5" fill="#e0893f"/>
+            <path class="logo-arbre" d="M24 4 L34 19 H28.5 L37 32 H27 V44 H21 V32 H11 L19.5 19 H14 Z"/>
+            <circle class="logo-resine" cx="38" cy="39" r="4.5"/>
           </svg>
-          <span>Clinique des Pins<small>Vétérinaires</small></span>
+          <span>Clinique des Pins<small>Vétérinaires à Mimizan</small></span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Ouvrir le menu">
           <span class="navbar-toggler-icon"></span>
@@ -51,7 +51,7 @@
             <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
             <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
             <li class="nav-item"><a class="nav-link active" aria-current="page" href="contact.html">Contact</a></li>
-            <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn btn-ambre" href="contact.html#formulaire">Prendre rendez-vous</a></li>
+            <li class="nav-item ms-lg-3 mt-2 mt-lg-0"><a class="btn btn-resine" href="contact.html#formulaire">Prendre rendez-vous</a></li>
           </ul>
         </div>
       </div>
@@ -60,30 +60,33 @@
 
   <main id="contenu">
     <!-- ===== Bandeau de page ===== -->
-    <section class="bandeau-page bandeau-contact" aria-labelledby="titre-page">
+    <section class="bandeau-page" aria-labelledby="titre-page">
       <div class="container">
         <nav aria-label="Fil d'Ariane">
-          <ol class="breadcrumb mb-2">
+          <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page">Contact</li>
           </ol>
         </nav>
-        <h1 id="titre-page">Contact &amp; rendez-vous</h1>
-        <p class="lead mb-0">Une question, un rendez-vous ? Nous vous répondons sous 24 heures ouvrées.</p>
+        <div class="row g-3 align-items-end">
+          <div class="col-lg-8"><h1 id="titre-page">Contact &amp; rendez-vous.</h1></div>
+          <div class="col-lg-4"><p class="chapeau mb-0">Une question, un rendez-vous ? Nous vous répondons sous 24 heures ouvrées.</p></div>
+        </div>
       </div>
+      <div class="bandeau-photo bandeau-contact"></div>
     </section>
 
     <!-- ===== Formulaire + coordonnées ===== -->
     <section class="section" aria-labelledby="titre-formulaire">
       <div class="container">
-        <div class="row g-4">
-          <!-- Formulaire de contact (validé par script.js) -->
+        <div class="row gy-5 gx-lg-5">
+          <!-- Formulaire de contact : validé par script.js, envoyé par e-mail via /api/contact -->
           <div class="col-lg-7 apparition">
-            <div class="carte-formulaire" id="formulaire">
-              <span class="sur-titre">Écrivez-nous</span>
-              <h2 id="titre-formulaire" class="mb-4">Envoyer un message</h2>
+            <div id="formulaire">
+              <p class="sur-titre sur-titre-simple"><span>01</span> Écrivez-nous</p>
+              <h2 id="titre-formulaire" class="mb-4">Envoyer un message.</h2>
 
-              <form id="formContact" action="#" method="post" novalidate>
+              <form id="formContact" class="formulaire-contact" action="#" method="post" novalidate>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="nom" class="form-label">Nom complet *</label>
@@ -93,12 +96,12 @@
                   <div class="col-md-6">
                     <label for="email" class="form-label">Adresse e-mail *</label>
                     <input type="email" class="form-control" id="email" name="email" autocomplete="email" required maxlength="120">
-                    <div class="invalid-feedback">Indiquez une adresse e-mail valide (ex. : nom@domaine.fr).</div>
+                    <div class="invalid-feedback">Indiquez une adresse e-mail valide (ex. : nom@domaine.fr).</div>
                   </div>
                   <div class="col-md-6">
                     <label for="telephone" class="form-label">Téléphone <span class="texte-doux">(facultatif)</span></label>
                     <input type="tel" class="form-control" id="telephone" name="telephone" autocomplete="tel" pattern="^(\+33\s?|0)[1-9](\s?\d{2}){4}$">
-                    <div class="invalid-feedback">Format attendu : 06 12 34 56 78 ou +33 6 12 34 56 78.</div>
+                    <div class="invalid-feedback">Format attendu : 06 12 34 56 78 ou +33 6 12 34 56 78.</div>
                   </div>
                   <div class="col-md-6">
                     <label for="animal" class="form-label">Votre animal</label>
@@ -113,54 +116,50 @@
                   </div>
                   <div class="col-12">
                     <label for="message" class="form-label">Message *</label>
-                    <textarea class="form-control" id="message" name="message" rows="5" required minlength="10" maxlength="1500"></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="6" required minlength="10" maxlength="1500"></textarea>
                     <div class="invalid-feedback">Votre message doit contenir au moins 10 caractères.</div>
                     <small class="texte-doux d-block text-end" id="compteurMessage" aria-live="polite">0 / 1500</small>
+                  </div>
+                  <!-- Champ piège : invisible pour les visiteurs, seuls les robots le remplissent -->
+                  <div class="champ-piege" aria-hidden="true">
+                    <label for="confirmation_interne">Ne pas remplir ce champ</label>
+                    <input type="text" id="confirmation_interne" name="confirmation_interne" tabindex="-1" autocomplete="off">
                   </div>
                   <div class="col-12">
                     <div class="form-check">
                       <input class="form-check-input" type="checkbox" id="consentement" name="consentement" required>
-                      <label class="form-check-label" for="consentement">J'accepte que mes données soient utilisées pour répondre à ma demande. *</label>
+                      <label class="form-check-label" for="consentement">J'accepte que mes données soient transmises par e-mail pour répondre à ma demande. *</label>
                       <div class="invalid-feedback">Votre accord est nécessaire pour que nous puissions vous répondre.</div>
                     </div>
+                    <p class="mention-formulaire">Site réalisé dans le cadre d'un projet étudiant : la clinique est fictive et votre message est réellement transmis à l'équipe du projet. N'y indiquez aucune donnée sensible.</p>
                   </div>
                   <div class="col-12">
-                    <button type="submit" class="btn btn-ambre"><i class="bi bi-send me-2" aria-hidden="true"></i>Envoyer le message</button>
+                    <button type="submit" class="btn btn-resine" id="boutonEnvoi">Envoyer le message</button>
                   </div>
                 </div>
               </form>
 
-              <!-- Zone de confirmation affichée par script.js -->
-              <div id="confirmationContact" class="alert alert-success mt-4 d-none" role="status" tabindex="-1"></div>
+              <!-- Zones de résultat affichées par script.js -->
+              <div id="confirmationContact" class="message-formulaire message-succes d-none" role="status" tabindex="-1"></div>
+              <div id="erreurContact" class="message-formulaire message-echec d-none" role="alert" tabindex="-1"></div>
             </div>
           </div>
 
           <!-- Coordonnées de l'entreprise -->
           <div class="col-lg-5 apparition">
             <aside class="carte-coordonnees" aria-labelledby="titre-coordonnees">
-              <h2 id="titre-coordonnees" class="h3 mb-4">Nos coordonnées</h2>
-              <div class="ligne-contact">
-                <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
-                <div><strong class="text-white">Adresse</strong><br>12 allée des Pins<br>40200 Mimizan, France</div>
-              </div>
-              <div class="ligne-contact">
-                <i class="bi bi-telephone-fill" aria-hidden="true"></i>
-                <div><strong class="text-white">Téléphone</strong><br><a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a><br><small>Urgences 24 h/24, 7 j/7</small></div>
-              </div>
-              <div class="ligne-contact">
-                <i class="bi bi-envelope-fill" aria-hidden="true"></i>
-                <div><strong class="text-white">E-mail</strong><br><a href="mailto:contact@clinique-des-pins.fr">contact@clinique-des-pins.fr</a></div>
-              </div>
-              <div class="ligne-contact">
-                <i class="bi bi-clock-fill" aria-hidden="true"></i>
-                <div>
-                  <strong class="text-white">Horaires</strong><br>
-                  Lundi – vendredi : 8 h – 19 h<br>
-                  Samedi : 9 h – 17 h<br>
-                  Dimanche : urgences uniquement
-                </div>
-              </div>
-              <p class="mb-0 mt-4"><span class="badge text-bg-warning" id="statutOuverture">Horaires</span></p>
+              <h2 id="titre-coordonnees">Nos coordonnées</h2>
+              <dl class="liste-contact">
+                <dt>Adresse</dt>
+                <dd>12 allée des Pins<br>40200 Mimizan, France</dd>
+                <dt>Téléphone</dt>
+                <dd><a href="tel:+33558001234">05&nbsp;58&nbsp;00&nbsp;12&nbsp;34</a><br>Urgences 24 h/24, 7 j/7</dd>
+                <dt>E-mail</dt>
+                <dd><a href="mailto:contact@clinique-des-pins.fr">contact@clinique-des-pins.fr</a></dd>
+                <dt>Horaires</dt>
+                <dd>Lundi – vendredi : 8 h – 19 h<br>Samedi : 9 h – 17 h<br>Dimanche : urgences uniquement</dd>
+              </dl>
+              <p class="mb-0"><span class="statut-ouverture" id="statutOuverture">Horaires</span></p>
             </aside>
           </div>
         </div>
@@ -170,19 +169,21 @@
     <!-- ===== Plan d'accès + photos ===== -->
     <section class="section section-sable" aria-labelledby="titre-acces">
       <div class="container">
-        <div class="titre-section apparition">
-          <span class="sur-titre">Plan d'accès</span>
-          <h2 id="titre-acces">À 5 minutes du centre de Mimizan</h2>
-          <p class="texte-doux">Parking gratuit de 20 places, accès PMR, arrêt de bus « Les Pins » (ligne 2) à 100 m.</p>
-        </div>
-        <div class="row g-4 align-items-stretch">
+        <header class="entete-section apparition">
+          <p class="sur-titre"><span>02</span> Plan d'accès</p>
+          <div>
+            <h2 id="titre-acces">À 5 minutes du centre de Mimizan.</h2>
+            <p class="chapeau">Parking gratuit de 20 places, accès PMR, arrêt de bus « Les Pins » (ligne 2) à 100 m.</p>
+          </div>
+        </header>
+        <div class="row g-4">
           <div class="col-lg-8 apparition">
             <iframe class="carte-plan" title="Plan d'accès à Mimizan (OpenStreetMap)" src="https://www.openstreetmap.org/export/embed.html?bbox=-1.2600%2C44.1900%2C-1.2000%2C44.2250&amp;layer=mapnik&amp;marker=44.2075%2C-1.2300" loading="lazy"></iframe>
           </div>
           <div class="col-lg-4 apparition">
-            <div class="row g-3 h-100">
-              <div class="col-6 col-lg-12"><img class="image-arrondie h-100" src="assets/img/clinique-chien.jpg" alt="Accueil d'un petit chien à la clinique" width="1000" height="667" loading="lazy"></div>
-              <div class="col-6 col-lg-12"><img class="image-arrondie h-100" src="assets/img/pins-brume.jpg" alt="Forêt de pins dans la brume, autour de la clinique" width="1800" height="1200" loading="lazy"></div>
+            <div class="photos-acces">
+              <img src="assets/img/clinique-chien.jpg" alt="Accueil d'un petit chien à la clinique" width="1000" height="1500" loading="lazy">
+              <img src="assets/img/pins-brume.jpg" alt="Forêt de pins dans la brume, autour de la clinique" width="1800" height="1200" loading="lazy">
             </div>
           </div>
         </div>
@@ -191,37 +192,46 @@
 
     <!-- ===== Bandeau photo + appel au chatbot ===== -->
     <section class="appel-action" aria-labelledby="titre-cta">
-      <div class="container text-center apparition">
-        <h2 id="titre-cta" class="display-6">Besoin d'une réponse immédiate ?</h2>
-        <p class="lead mb-4">Sylva, notre assistante virtuelle, répond à vos questions pratiques à toute heure.</p>
-        <button class="btn btn-ambre" type="button" data-ouvrir-chatbot>Discuter avec Sylva</button>
+      <div class="container apparition">
+        <h2 id="titre-cta">Besoin d'une réponse immédiate ?</h2>
+        <p class="chapeau">Sylva, notre assistante virtuelle, répond à vos questions pratiques à toute heure.</p>
+        <button class="btn btn-resine" type="button" data-ouvrir-chatbot>Discuter avec Sylva</button>
       </div>
     </section>
   </main>
 
+  <!-- ===== Ruban de photos : les patients de la clinique ===== -->
+  <div class="ruban-photos">
+    <img src="assets/img/chiot-dort.jpg" alt="Chiot endormi" width="1000" height="1500" loading="lazy">
+    <img src="assets/img/chat-longpoil.jpg" alt="Chaton qui joue" width="1000" height="1499" loading="lazy">
+    <img src="assets/img/chien-bandana.jpg" alt="Bichon avec un bandana" width="1000" height="1500" loading="lazy">
+    <img src="assets/img/toilettage-shihtzu.jpg" alt="Petit chien blanc qui court" width="1000" height="667" loading="lazy">
+    <img src="assets/img/chiot-tulipe.jpg" alt="Chiot avec une fleur dans la gueule" width="1000" height="1603" loading="lazy">
+    <img src="assets/img/pins-ciel.jpg" alt="Cimes des pins" width="1200" height="1800" loading="lazy">
+  </div>
+
   <!-- ===== Pied de page ===== -->
   <footer class="pied-page">
     <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <h2 class="titre-serif">Clinique Vétérinaire des Pins</h2>
-          <p>Soigner avec science, accueillir avec cœur. Chiens, chats, NAC et équidés depuis 2009.</p>
-          <div class="reseaux">
-            <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
-            <a href="#" aria-label="YouTube"><i class="bi bi-youtube" aria-hidden="true"></i></a>
-          </div>
+      <div class="row g-4 g-lg-5">
+        <div class="col-lg-5">
+          <h2 class="devise">Soigner avec science, accueillir avec cœur.</h2>
+          <p class="mb-0">Clinique Vétérinaire des Pins : chiens, chats, NAC et équidés depuis 2009.</p>
         </div>
         <div class="col-6 col-lg-2">
           <h3>Navigation</h3>
-          <ul class="list-unstyled">
+          <ul class="list-unstyled mb-0">
             <li><a href="index.html">Accueil</a></li>
             <li><a href="a-propos.html">À propos</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-        <div class="col-6 col-lg-3">
+        <div class="col-6 col-lg-2">
+          <h3>Horaires</h3>
+          <p class="mb-0">Lun–ven : 8 h–19 h<br>Sam : 9 h–17 h<br>Dim et nuits : urgences</p>
+        </div>
+        <div class="col-lg-3">
           <h3>Nous trouver</h3>
           <address class="mb-0">
             12 allée des Pins<br>40200 Mimizan, France<br>
@@ -229,21 +239,10 @@
             <a href="mailto:contact@clinique-des-pins.fr">contact@clinique-des-pins.fr</a>
           </address>
         </div>
-        <div class="col-lg-3">
-          <h3>Sur Instagram</h3>
-          <div class="row g-2 mini-galerie">
-            <div class="col-4"><img src="assets/img/chiot-dort.jpg" alt="Chiot endormi" width="120" height="120" loading="lazy"></div>
-            <div class="col-4"><img src="assets/img/chat-longpoil.jpg" alt="Chaton qui joue" width="120" height="120" loading="lazy"></div>
-            <div class="col-4"><img src="assets/img/chien-bandana.jpg" alt="Bichon avec un bandana" width="120" height="120" loading="lazy"></div>
-            <div class="col-4"><img src="assets/img/toilettage-shihtzu.jpg" alt="Petit chien blanc qui court" width="120" height="120" loading="lazy"></div>
-            <div class="col-4"><img src="assets/img/chiot-tulipe.jpg" alt="Chiot avec une fleur dans la gueule" width="120" height="120" loading="lazy"></div>
-            <div class="col-4"><img src="assets/img/pins-ciel.jpg" alt="Cimes des pins" width="120" height="120" loading="lazy"></div>
-          </div>
-        </div>
       </div>
       <div class="bas d-flex flex-wrap justify-content-between gap-2">
         <span>© 2026 Clinique Vétérinaire des Pins — entreprise fictive, projet pédagogique.</span>
-        <span>Photos : <a href="https://unsplash.com/license">Unsplash</a> (libres de droits)</span>
+        <span>Photos : <a href="https://unsplash.com/license">Unsplash</a> (libres de droits)</span>
       </div>
     </div>
   </footer>
