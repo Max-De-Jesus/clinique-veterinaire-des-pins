@@ -3,7 +3,7 @@
 **Dernière mise à jour** : 2026-11-01, par Claude Code (lot 2 : refonte du design, envoi du formulaire, HTTPS).
 
 ## Site en ligne
-https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de commande : le dépôt GitHub a deux commits de retard tant que le propriétaire n'a pas autorisé le push).
+https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de commande : le dépôt GitHub reste en retard sur le site tant que le propriétaire n'a pas autorisé le push).
 
 ## Fait et vérifié
 - 4 pages (`index`, `a-propos`, `services`, `contact`), plus `css/style.css` et `js/script.js`. 45 photos Unsplash, listées dans `tools/images.txt`.

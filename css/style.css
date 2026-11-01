@@ -363,16 +363,13 @@ img {
 
 .hero-slogan {
   margin-bottom: 1.25rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--encre);
   font-family: var(--police-titre);
   font-style: italic;
   font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
   line-height: 1.15;
   color: var(--resine);
-}
-
-.hero-texte {
-  padding-top: 0.25rem;
-  border-top: 1px solid var(--encre);
 }
 
 .carrousel-accueil .carousel-item img {
@@ -412,6 +409,7 @@ img {
   margin: 0 3px;
   border: 0;
   background-color: var(--papier-clair);
+  box-shadow: 0 0 0 1px rgba(17, 38, 27, 0.45); /* reste visible sur un ciel clair */
 }
 
 /* Flèches carrées posées sur la photo */
