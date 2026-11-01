@@ -65,7 +65,7 @@ Le navigateur appelle `/api/contact`, qui revalide les données et envoie un e-m
 
 ```
 index.html  a-propos.html  services.html  contact.html
-css/style.css      js/script.js      assets/img/ (45 photos)   assets/favicon.svg
+css/style.css      js/script.js      assets/img/ (45 photos)   assets/favicon.svg, favicon.ico, assets/apple-touch-icon.png
 api/chat.js        api/contact.js    api/_commun.js    api/_contexte.js (contexte métier envoyé à l'IA)
 tests/             tools/ (serveur local, lanceur de tests, téléchargement des images)
 docs/              (ADR, passation, registre des intégrations)

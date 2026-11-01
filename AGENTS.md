@@ -23,7 +23,7 @@ Le sujet complet est dans `Projet 1.pdf` (non versionné). Le propriétaire veut
 
 ## Vérifications obligatoires avant de conclure
 ```bash
-npm test          # doit afficher « obtenu=75 » (ou plus) et « RÉSULTAT : SUCCÈS »
+npm test          # doit afficher « obtenu=76 » (ou plus) et « RÉSULTAT : SUCCÈS »
 npm run validate  # html-validate : aucune erreur attendue
 npm run dev  # contrôle visuel sur http://localhost:3000 à 375 px et 1280 px
 ```

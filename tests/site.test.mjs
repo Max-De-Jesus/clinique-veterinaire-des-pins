@@ -226,3 +226,18 @@ test('page contact : QR code local, en bas de page, avec une adresse en HTTPS', 
   assert.ok(html.indexOf('code-qr') > html.indexOf('appel-action'), 'le QR code doit rester en bas de la page');
   assert.match(await lire('assets/qr-site.svg'), /<svg[\s\S]*<\/svg>/);
 });
+
+test('favicon : présent sur les 4 pages, avec un ICO valide et des fichiers existants', async () => {
+  for (const page of PAGES) {
+    const html = await lire(page);
+    for (const fichier of ['favicon.ico', 'assets/favicon.svg', 'assets/apple-touch-icon.png']) {
+      assert.ok(html.includes(`href="${fichier}"`), `${page} : lien manquant vers ${fichier}`);
+      assert.ok(existsSync(path.join(racine, fichier)), `fichier manquant : ${fichier}`);
+    }
+  }
+  const ico = await readFile(path.join(racine, 'favicon.ico'));
+  assert.equal(ico.readUInt16LE(2), 1, 'type ICO attendu');
+  assert.equal(ico.readUInt16LE(4), 3, 'trois tailles attendues');
+  const pomme = await readFile(path.join(racine, 'assets/apple-touch-icon.png'));
+  assert.equal(pomme.readUInt32BE(16), 180, 'icône Apple de 180 px attendue');
+});

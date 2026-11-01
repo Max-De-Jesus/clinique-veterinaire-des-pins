@@ -16,9 +16,10 @@ https://clinique-veterinaire-des-pins.vercel.app. Le dépôt GitHub est à jour 
 - **Poids** : photos allégées de 7,1 Mo à 2,7 Mo ; l'accueil passe de 5,1 Mo à 2,0 Mo d'images.
 - **Déploiement** : `.vercelignore` exclut `Projet 1.pdf`, les tests, les outils et la documentation (HTTP 404 vérifié).
 - Chatbot « Sylva » : **prouvé en production le 2026-11-01** : réponse juste sur les horaires et le tarif, renvoi vers le 05 58 00 12 34 pour une urgence, refus du hors sujet. Modèle de secours ajouté après 4 échecs réels sur 11 appels (Gemini 503 et 429) : 12 réponses sur 12 ensuite, rafale comprise. Quota gratuit : 5 requêtes par minute et par modèle.
+- **Favicon** : `favicon.ico` (16, 32 et 48 px), `assets/favicon.svg`, `assets/apple-touch-icon.png`, reliés aux 4 pages.
 - **QR code** en bas de `contact.html` (`assets/qr-site.svg`), vers le site en HTTPS. Décodé depuis une capture de la page avant publication. Si l'adresse du site change, il faut le régénérer.
 - **Présentation orale** : `docs/presentation-groupe-4.pdf` (11 diapositives) et `docs/presentation-groupe-4-livret-orateur.pdf` (texte, minutage, questions probables). Durée estimée sous les 7 minutes, **à confirmer par une répétition chronométrée**.
-- `npm test` : **75/75**, avec une garde de comptage (minimum 70). 7 tests couvrent les exigences du sujet (PDF).
+- `npm test` : **76/76**, avec une garde de comptage (minimum 70). 7 tests couvrent les exigences du sujet (PDF).
 - `npm run validate` (html-validate 8.24.1) : aucune erreur sur les 4 pages.
 - Validation W3C officielle (validator.w3.org/nu), site en ligne, le 2026-11-01 : 0 erreur et 0 avertissement sur les 4 pages.
 - **Guide pour développeurs juniors** : `docs/guide-developpeurs-juniors.pdf` (dont le chapitre 11 sur HTTPS). Ses extraits de code ont été copiés du vrai code à sa génération : le régénérer ou le corriger si le code change.
