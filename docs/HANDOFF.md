@@ -22,11 +22,10 @@ https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de c
 - Revue de sécurité : aucun défaut critique ou élevé ; le défaut moyen et les défauts faibles ont été corrigés (limite par bloc IPv6, serveur local limité à `127.0.0.1` et refus des fichiers cachés, taille du corps, Content-Type, adresse unique dans `reply_to`, champ piège renommé).
 
 ## À faire
-1. **Remplacer `RESEND_API_KEY` et `GEMINI_API_KEY`** : ces deux clés ont été collées dans une conversation et sont à considérer comme exposées. Elles ne figurent pas dans le dépôt. Procédure : créer une nouvelle clé, révoquer l'ancienne, `vercel env rm <NOM> production`, `vercel env add <NOM> production`, redéployer, retester.
-2. **Pousser sur GitHub** : en attente de l'accord du propriétaire (le dépôt est en retard sur le site).
-3. **Confirmer la direction du design** (« carnet naturaliste », choisie par défaut).
-4. **Validation W3C officielle** (validator.w3.org) : pas lancée.
-5. **Présentation orale de 7 minutes** : à préparer.
+1. **Pousser sur GitHub** : en attente de l'accord du propriétaire (le dépôt est en retard sur le site).
+2. **Confirmer la direction du design** (« carnet naturaliste », choisie par défaut).
+3. **Validation W3C officielle** (validator.w3.org) : pas lancée.
+4. **Présentation orale de 7 minutes** : à préparer.
 
 ## Limite connue
 Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et l'expéditeur affiché est `onboarding@resend.dev`. C'est suffisant pour ce projet.
@@ -40,7 +39,7 @@ Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et 
 Projet `clinique-veterinaire-des-pins`, équipe `hbdmimi-s-projects`, relié au dépôt GitHub : un `git push` sur `main` déclenche un déploiement. Les conditions de Resend du Marketplace sont acceptées au niveau de l'équipe, sans ressource créée ni facturation. Variables de production : `GEMINI_API_KEY`, `RESEND_API_KEY`, `CONTACT_DESTINATAIRE`. `CONTACT_DESTINATAIRE` est configurée en production et en développement.
 
 ## Prochaine action
-Remplacer les deux clés exposées, puis pousser sur GitHub avec l'accord du propriétaire.
+Pousser sur GitHub avec l'accord du propriétaire.
 
 ## Dettes connues
 | Id | Problème | Impact | Raison du report | Déclencheur | Statut |
@@ -48,4 +47,5 @@ Remplacer les deux clés exposées, puis pousser sur GitHub avec l'accord du pro
 | D1 | Limitation de débit en mémoire, par instance (chatbot et formulaire) | Contournable sous forte charge | Suffisant pour un projet étudiant ; un stockage partagé exigerait un fournisseur externe | Trafic réel / abus constaté | Ouvert |
 | D2 | ~~Le formulaire n'envoie rien~~ | — | — | — | Résolu |
 | D3 | En-tête et pied de page dupliqués dans 4 fichiers | Risque d'oubli lors d'une modification | Le sujet impose du HTML statique, sans gabarit | Ajout d'une 5ᵉ page | Ouvert |
+| D5 | `RESEND_API_KEY` et `GEMINI_API_KEY` ont été collées dans une conversation le 2026-11-01 | Utilisation possible par un tiers qui accéderait à cette conversation | Le propriétaire a décidé de les conserver (2026-11-01). Elles ne sont ni dans le dépôt ni dans son historique | Usage ou quota anormal, ou nouvelle décision du propriétaire | Accepté par le propriétaire |
 | D4 | `css/style.css` dépasse le plafond indicatif de 800 lignes | Fichier plus long à parcourir | Le sujet impose un seul fichier `style.css` ; il est découpé en 18 sections par un sommaire | Ajout important de styles | Accepté |
