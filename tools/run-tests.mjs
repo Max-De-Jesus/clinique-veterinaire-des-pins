@@ -6,7 +6,7 @@ import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const MINIMUM_ATTENDU = 50;
+const MINIMUM_ATTENDU = 70;
 const dossier = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'tests');
 const fichiers = (await readdir(dossier)).filter((f) => f.endsWith('.test.mjs')).map((f) => path.join(dossier, f));
 

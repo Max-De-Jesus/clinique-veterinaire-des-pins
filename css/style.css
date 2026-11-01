@@ -1822,6 +1822,7 @@ img {
   opacity: 1;
   visibility: visible;
   transform: none;
+  transition-duration: var(--duree), var(--duree), 0s; /* visible aussitôt : le champ peut recevoir le curseur */
 }
 
 .chatbot-entete {

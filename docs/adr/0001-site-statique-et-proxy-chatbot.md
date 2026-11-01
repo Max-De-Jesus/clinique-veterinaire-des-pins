@@ -20,6 +20,10 @@ Le sujet impose HTML et CSS, avec Bootstrap 5 encouragé. Le CSS doit être dans
    - CSP dans `vercel.json`.
 5. ~~**Formulaire de contact** : il est seulement validé côté client, car aucun service d'envoi d'e-mail n'est branché. Le message de confirmation le dit honnêtement.~~ Remplacé : le formulaire envoie un e-mail réel via `/api/contact` (ADR 0002).
 
+## Amendement du 2026-11-01 : modèle de secours
+
+Les journaux de production ont montré des échecs réels : Gemini répond parfois 503 (« high demand ») ou 429 (quota), soit 4 appels sur 11 lors d'une mesure. Si le modèle principal répond 503 ou 429, la fonction réessaie **une seule fois** sur un modèle de secours (`gemini-2.5-flash-lite`, modifiable par `GEMINI_MODEL_SECOURS`). Les autres erreurs, comme une clé refusée, ne déclenchent aucun nouvel essai. Si les deux modèles échouent, le visiteur voit le message d'indisponibilité habituel.
+
 ## Alternatives écartées
 
 - **Appel direct à Gemini depuis le navigateur** : la clé serait exposée, ce que le sujet interdit.

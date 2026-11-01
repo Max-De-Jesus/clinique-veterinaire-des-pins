@@ -6,6 +6,8 @@ import { CONTEXTE_CLINIQUE } from './_contexte.js';
 import { json, adresseIP, creerLimiteur } from './_commun.js';
 
 const MODELE_PAR_DEFAUT = 'gemini-2.5-flash';
+const MODELE_SECOURS_PAR_DEFAUT = 'gemini-2.5-flash-lite';
+const STATUTS_SURCHARGE = [429, 503]; // Gemini saturé ou quota atteint : un autre modèle peut répondre
 const MESSAGES_MAX = 12;           // nombre de messages d'historique acceptés
 const LONGUEUR_MESSAGE_MAX = 500;  // caractères par message
 const DELAI_API_MS = 20000;        // délai maximal d'attente de Gemini
@@ -36,6 +38,23 @@ export function convertirHistorique(messages) {
   return contenus;
 }
 
+/** Interroge un modèle Gemini avec le contexte de la clinique ; la clé part dans un en-tête, jamais dans l'URL. */
+async function appelerGemini(modele, cleApi, contenus) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modele)}:generateContent`;
+  const reponse = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': cleApi },
+    signal: AbortSignal.timeout(DELAI_API_MS),
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: CONTEXTE_CLINIQUE }] },
+      contents: contenus,
+      generationConfig: { temperature: 0.5, maxOutputTokens: 600 }
+    })
+  });
+  const donnees = await reponse.json().catch(() => ({}));
+  return { reponse, donnees };
+}
+
 export async function POST(request) {
   const cleApi = process.env.GEMINI_API_KEY;
   if (!cleApi) {
@@ -60,21 +79,17 @@ export async function POST(request) {
   }
 
   const modele = process.env.GEMINI_MODEL || MODELE_PAR_DEFAUT;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modele)}:generateContent`;
+  const modeleSecours = process.env.GEMINI_MODEL_SECOURS || MODELE_SECOURS_PAR_DEFAUT;
 
   try {
-    const reponse = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': cleApi },
-      signal: AbortSignal.timeout(DELAI_API_MS),
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: CONTEXTE_CLINIQUE }] },
-        contents: contenus,
-        generationConfig: { temperature: 0.5, maxOutputTokens: 600 }
-      })
-    });
+    let { reponse, donnees } = await appelerGemini(modele, cleApi, contenus);
 
-    const donnees = await reponse.json().catch(() => ({}));
+    // Un seul nouvel essai, et seulement pour une surcharge : une clé refusée le serait aussi par le secours
+    if (STATUTS_SURCHARGE.includes(reponse.status)) {
+      console.error('[chat] Gemini surchargé, passage au modèle de secours', reponse.status);
+      ({ reponse, donnees } = await appelerGemini(modeleSecours, cleApi, contenus));
+    }
+
     if (!reponse.ok) {
       console.error('[chat] Erreur Gemini', reponse.status, donnees?.error?.message);
       return json(502, { erreur: 'Sylva est momentanément indisponible. Réessayez dans un instant.' });

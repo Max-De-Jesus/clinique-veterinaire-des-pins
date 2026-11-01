@@ -100,6 +100,53 @@ test('POST limite à 15 requêtes par minute et par IP', async () => {
   assert.equal(statuts[15], 429);
 });
 
+/** Simule Gemini : chaque appel consomme le statut suivant et mémorise le modèle demandé. */
+function simulerGeminiSuccessif(statuts) {
+  const modeles = [];
+  globalThis.fetch = async (url) => {
+    modeles.push(decodeURIComponent(String(url)).split('/models/')[1].split(':')[0]);
+    const statut = statuts[modeles.length - 1];
+    const corps = statut === 200
+      ? { candidates: [{ content: { parts: [{ text: 'Réponse de secours' }] } }] }
+      : { error: { message: 'erreur simulée' } };
+    return new Response(JSON.stringify(corps), { status: statut });
+  };
+  return modeles;
+}
+
+for (const statut of [503, 429]) {
+  test(`POST bascule une fois sur le modèle de secours si Gemini répond ${statut}`, async () => {
+    const modeles = simulerGeminiSuccessif([statut, 200]);
+    const reponse = await POST(requete(question));
+    assert.equal(reponse.status, 200);
+    assert.equal((await reponse.json()).reponse, 'Réponse de secours');
+    assert.equal(modeles.length, 2);
+    assert.notEqual(modeles[0], modeles[1]);
+  });
+}
+
+test("POST ne réessaie pas si l'erreur ne vient pas de la charge (clé refusée)", async () => {
+  const modeles = simulerGeminiSuccessif([400, 200]);
+  const reponse = await POST(requete(question));
+  assert.equal(reponse.status, 502);
+  assert.equal(modeles.length, 1);
+});
+
+test('POST renvoie 502 après un seul essai de secours si les deux modèles échouent', async () => {
+  const modeles = simulerGeminiSuccessif([503, 503, 200]);
+  const reponse = await POST(requete(question));
+  assert.equal(reponse.status, 502);
+  assert.equal(modeles.length, 2);
+});
+
+test("POST respecte GEMINI_MODEL_SECOURS lorsqu'il est défini", async () => {
+  process.env.GEMINI_MODEL_SECOURS = 'modele-secours-test';
+  const modeles = simulerGeminiSuccessif([503, 200]);
+  await POST(requete(question));
+  delete process.env.GEMINI_MODEL_SECOURS;
+  assert.equal(modeles[1], 'modele-secours-test');
+});
+
 test('GET est refusé', async () => {
   assert.equal(GET().status, 405);
 });
