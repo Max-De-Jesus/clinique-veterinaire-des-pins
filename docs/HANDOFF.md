@@ -1,6 +1,6 @@
 # Passation — état du projet
 
-**Dernière mise à jour** : 2026-11-01, par Claude Code (lot 3 : design « moderne et chic » avec animations).
+**Dernière mise à jour** : 2026-11-01, par Claude Code (lot 3 : design « moderne et chic » avec animations, puis revue du design).
 
 ## Site en ligne
 https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de commande : le dépôt GitHub reste en retard sur le site tant que le propriétaire n'a pas autorisé le push).
@@ -8,6 +8,7 @@ https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de c
 ## Fait et vérifié
 - 4 pages (`index`, `a-propos`, `services`, `contact`), plus `css/style.css` et `js/script.js`. 45 photos Unsplash, listées dans `tools/images.txt`.
 - **Design « moderne et chic »**, demandé par le propriétaire le 2026-11-01 à la place du « carnet naturaliste » : vert nuit, ivoire, un seul accent or, titres Instrument Serif, texte Manrope, coins arrondis, hero plein écran.
+- **Revue du design** : stabilité au chargement corrigée (CLS de 0,29 à moins de 0,01, polices de repli aux proportions mesurées), photos du hero moins assombries et sujet dégagé du titre, hero mobile recomposé, menu allégé au défilement, bulle du chatbot une seule fois par visite, tableau des tarifs accessible au clavier.
 - **Animations** : titres révélés mot à mot, zoom lent des photos, bandeau défilant, parallaxe (limitée à 40 px, ordinateur seulement), barre de progression, en-tête en verre qui se réduit, apparitions en cascade, levée des cartes, reflet des boutons. Toutes sont désactivées si le visiteur demande moins d'animations (mesuré).
 - **Formulaire de contact** : `POST /api/contact` valide puis envoie via Resend (ADR 0002). **Prouvé en production le 2026-11-01** : deux messages (appel direct de l'API et vrai formulaire dans Chrome, CSP active) retrouvés dans la boîte Gmail destinataire, en boîte de réception, avec tous les champs.
 - **HTTPS** : vérifié en ligne. HTTP redirige en 308 vers HTTPS ; en-tête HSTS actif ; 0 requête HTTP sur les 4 pages, à 1280 et 375 px.

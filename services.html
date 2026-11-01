@@ -297,7 +297,8 @@
             <p class="chapeau">Prix TTC 2026, hors médicaments. Un devis précis vous est remis avant chaque intervention.</p>
           </div>
         </header>
-        <div class="table-responsive apparition">
+        <!-- La zone défile sur mobile : elle doit rester accessible au clavier -->
+        <section class="table-responsive apparition" tabindex="0" aria-label="Tableau des tarifs, défilant sur petit écran">
           <table class="table align-middle table-tarifs">
             <caption>Tarifs donnés à titre indicatif (entreprise fictive).</caption>
             <thead>
@@ -317,7 +318,7 @@
               <tr><th scope="row">Séance Sentier des Pins</th><td>38 €</td><td>—</td><td>—</td></tr>
             </tbody>
           </table>
-        </div>
+        </section>
       </div>
     </section>
 

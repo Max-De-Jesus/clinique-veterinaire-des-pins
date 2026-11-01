@@ -78,7 +78,13 @@ function initialiserNavigation() {
 // Bootstrap ne le lance qu'à l'événement « load », après ce réglage.
 function initialiserCarrousel() {
   const carrousel = document.getElementById('carrouselAccueil');
-  if (carrousel && reduireAnimations) carrousel.removeAttribute('data-bs-ride');
+  if (!carrousel) return;
+  if (reduireAnimations) carrousel.removeAttribute('data-bs-ride');
+
+  // Une fois la page chargée, les photos suivantes sont préparées : le fondu ne montre jamais de vide
+  window.addEventListener('load', () => {
+    carrousel.querySelectorAll('img[loading="lazy"]').forEach((image) => { image.loading = 'eager'; });
+  });
 }
 
 // Découpe les grands titres en mots pour les révéler l'un après l'autre.
@@ -428,7 +434,8 @@ const CHATBOT = {
 };
 
 const BULLE_APPARITION_MS = 3500;
-const BULLE_DISPARITION_MS = 12000;
+const BULLE_DISPARITION_MS = 9500;
+const CLE_BULLE_VUE = 'pins-bulle-vue';
 
 function initialiserChatbot() {
   const elements = construireChatbot();
@@ -469,8 +476,10 @@ function initialiserChatbot() {
   document.querySelectorAll('[data-ouvrir-chatbot]').forEach((b) => b.addEventListener('click', ouvrir));
 
   // Bulle d'accueil affichée quelques secondes, puis retirée pour ne pas masquer le contenu
-  setTimeout(() => elements.bulle.classList.remove('d-none'), BULLE_APPARITION_MS);
-  setTimeout(() => elements.bulle.classList.add('d-none'), BULLE_DISPARITION_MS);
+  if (!bulleDejaVue()) {
+    setTimeout(() => elements.bulle.classList.remove('d-none'), BULLE_APPARITION_MS);
+    setTimeout(() => elements.bulle.classList.add('d-none'), BULLE_DISPARITION_MS);
+  }
   elements.bulle.addEventListener('click', ouvrir);
   elements.bulle.addEventListener('keydown', (evt) => {
     if (evt.key === 'Enter' || evt.key === ' ') {
@@ -514,6 +523,17 @@ function initialiserChatbot() {
   elements.suggestions.querySelectorAll('button').forEach((b) => {
     b.addEventListener('click', () => envoyer(b.textContent));
   });
+}
+
+// La bulle d'accueil ne s'affiche qu'une fois par visite, pour ne pas gêner la lecture
+function bulleDejaVue() {
+  try {
+    if (sessionStorage.getItem(CLE_BULLE_VUE)) return true;
+    sessionStorage.setItem(CLE_BULLE_VUE, '1');
+  } catch (erreur) {
+    // Stockage indisponible (navigation privée) : la bulle reste affichée à chaque page
+  }
+  return false;
 }
 
 // Crée la bulle flottante et la fenêtre de discussion (présentes sur toutes les pages)

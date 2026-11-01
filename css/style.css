@@ -24,6 +24,20 @@
     19. Media queries (responsive)
    ========================================================================== */
 
+/* Polices de repli ajustées (rapports de largeur mesurés sur les textes du site) :
+   le texte garde sa mise en page quand la vraie police arrive, donc rien ne saute. */
+@font-face {
+  font-family: "Repli Titre";
+  src: local("Georgia");
+  size-adjust: 75.8%;
+}
+
+@font-face {
+  font-family: "Repli Texte";
+  src: local("Arial");
+  size-adjust: 102.6%;
+}
+
 /* 1. Variables ------------------------------------------------------------ */
 :root {
   /* Fonds */
@@ -56,8 +70,8 @@
   --rayon: 1.25rem;
   --rayon-petit: 0.75rem;
   /* Typographie */
-  --police-titre: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --police-texte: "Manrope", "Segoe UI", Arial, sans-serif;
+  --police-titre: "Instrument Serif", "Repli Titre", Georgia, serif;
+  --police-texte: "Manrope", "Repli Texte", "Segoe UI", Arial, sans-serif;
   --taille-h2: clamp(2.5rem, 1.7rem + 3.2vw, 4.75rem);
   --taille-chapeau: clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
   /* Rythme */
@@ -120,6 +134,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  background-color: var(--ivoire-fonce); /* teinte visible pendant le chargement */
 }
 
 :focus-visible {
@@ -333,12 +348,13 @@ img {
   border-radius: 1.6rem;
   background: var(--verre);
   backdrop-filter: blur(16px) saturate(140%);
-  transition: background-color var(--duree) var(--courbe), box-shadow var(--duree) var(--courbe);
+  transition: background-color var(--duree) var(--courbe), box-shadow var(--duree) var(--courbe), padding var(--duree) var(--courbe);
 }
 
 .navbar-reduite > .container {
-  background: rgba(12, 31, 23, 0.86);
-  box-shadow: var(--ombre-forte);
+  padding-block: 0.3rem;
+  background: rgba(12, 31, 23, 0.9);
+  box-shadow: 0 10px 24px -14px rgba(12, 31, 23, 0.6);
 }
 
 .navbar-pins .navbar-brand {
@@ -349,6 +365,10 @@ img {
   font-size: 1.5rem;
   line-height: 1;
   color: var(--ivoire);
+}
+
+.navbar-reduite .btn-or {
+  padding-block: 0.55rem;
 }
 
 .navbar-pins .navbar-brand small {
@@ -443,6 +463,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: 8% 45%; /* le zoom pousse le sujet vers la droite, loin du titre */
 }
 
 /* Zoom lent et continu sur la photo affichée */
@@ -452,10 +473,10 @@ img {
 
 @keyframes zoomLent {
   from {
-    transform: scale(1);
+    transform: scale(1.1);
   }
   to {
-    transform: scale(1.09);
+    transform: scale(1.18);
   }
 }
 
@@ -465,8 +486,9 @@ img {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, rgba(12, 31, 23, 0.92) 0%, rgba(12, 31, 23, 0.25) 55%, rgba(12, 31, 23, 0.55) 100%),
-    linear-gradient(90deg, rgba(12, 31, 23, 0.6) 0%, transparent 70%);
+    linear-gradient(0deg, rgba(12, 31, 23, 0.7) 0%, transparent 42%),
+    linear-gradient(180deg, rgba(12, 31, 23, 0.45) 0%, transparent 25%),
+    linear-gradient(90deg, rgba(12, 31, 23, 0.92) 0%, rgba(12, 31, 23, 0.72) 38%, transparent 68%);
 }
 
 .hero-contenu {
@@ -489,9 +511,9 @@ img {
 }
 
 .hero-titre {
-  max-width: 11em;
+  max-width: 7.2em;
   margin-bottom: 1.25rem;
-  font-size: clamp(3.5rem, 1rem + 9.4vw, 9.5rem);
+  font-size: clamp(3.5rem, 1.5rem + 6.8vw, 7.75rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
 }
@@ -505,8 +527,12 @@ img {
   color: var(--or-clair);
 }
 
+.hero-slogan,
 .hero-texte {
-  max-width: 34em;
+  max-width: 28rem;
+}
+
+.hero-texte {
   color: var(--texte-sur-nuit);
 }
 
@@ -682,8 +708,8 @@ img {
   z-index: -2;
   background-image: var(--photo-bandeau);
   background-size: cover;
-  background-position: center;
-  animation: zoomLent 14s ease-out both;
+  background-position: var(--cadrage-bandeau, center);
+  animation: zoomBandeau 14s ease-out both;
 }
 
 .bandeau-page::after {
@@ -691,7 +717,16 @@ img {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(0deg, rgba(12, 31, 23, 0.94) 0%, rgba(12, 31, 23, 0.3) 70%, rgba(12, 31, 23, 0.5) 100%);
+  background: linear-gradient(0deg, rgba(12, 31, 23, 0.9) 0%, rgba(12, 31, 23, 0.12) 68%, rgba(12, 31, 23, 0.42) 100%);
+}
+
+@keyframes zoomBandeau {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
 }
 
 .bandeau-apropos {
@@ -704,6 +739,7 @@ img {
 
 .bandeau-contact {
   --photo-bandeau: url("../assets/img/chien-foret.jpg");
+  --cadrage-bandeau: center 68%; /* garde le chien dans le cadre */
 }
 
 .bandeau-page h1 {
@@ -994,7 +1030,6 @@ img {
   aspect-ratio: 4 / 5;
   border-radius: var(--rayon-grand);
   object-fit: cover;
-  transition: transform 1s var(--courbe);
 }
 
 /* Colonne de photos à largeurs variées */
@@ -1949,8 +1984,7 @@ img {
 
 /* Les photos se dévoilent en se resserrant pendant l'apparition */
 .js .apparition:not(.visible) .cadre-image img,
-.js .apparition:not(.visible) .photo img,
-.js .apparition:not(.visible) .image-simple {
+.js .apparition:not(.visible) .photo img {
   transform: scale(1.14);
 }
 
@@ -1983,8 +2017,7 @@ img {
   }
 
   .js .apparition:not(.visible) .cadre-image img,
-  .js .apparition:not(.visible) .photo img,
-  .js .apparition:not(.visible) .image-simple {
+  .js .apparition:not(.visible) .photo img {
     transform: none;
   }
 
@@ -2083,6 +2116,30 @@ img {
 
   .hero {
     padding-bottom: 5rem;
+  }
+
+  /* Sur téléphone, la photo occupe le haut de l'écran et le texte se pose dessous */
+  .hero-carrousel .carousel-item img {
+    height: 64%;
+    object-position: 58% center;
+    transform-origin: center top;
+  }
+
+  .hero-carrousel .carousel-item::after {
+    background: linear-gradient(0deg, var(--nuit) 36%, rgba(12, 31, 23, 0.4) 58%, rgba(12, 31, 23, 0.25) 100%);
+  }
+
+  /* Le paragraphe est retiré : nom, slogan et boutons restent, et la photo reste visible */
+  .hero-texte {
+    display: none;
+  }
+
+  .hero-titre {
+    font-size: 3.1rem;
+  }
+
+  .hero-slogan {
+    font-size: 1.45rem;
   }
 
   .hero-carrousel .carousel-indicators {
