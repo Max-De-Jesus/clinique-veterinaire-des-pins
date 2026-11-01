@@ -2129,8 +2129,9 @@ img {
     background: linear-gradient(0deg, var(--nuit) 36%, rgba(12, 31, 23, 0.4) 58%, rgba(12, 31, 23, 0.25) 100%);
   }
 
-  /* Le paragraphe est retiré : nom, slogan et boutons restent, et la photo reste visible */
-  .hero-texte {
+  /* Paragraphe et pastille sont retirés : nom, slogan et boutons restent, et la photo reste visible */
+  .hero-texte,
+  .hero-lieu {
     display: none;
   }
 

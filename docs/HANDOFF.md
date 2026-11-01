@@ -34,6 +34,7 @@ Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et 
 ## Incidents de ce lot
 - `Projet 1.pdf` a été public quelques minutes sur le premier déploiement : déploiement supprimé, fichier exclu, HTTP 404 vérifié sur l'URL principale et sur l'ancienne.
 - Le serveur local écoutait sur toutes les interfaces et servait `.env.local` (jeton OIDC Vercel de courte durée) et `.git/config` pendant la session du 2026-11-01. Corrigé (HTTP 403, écoute sur `127.0.0.1`). Aucune preuve d'accès, aucune preuve du contraire.
+- 4 éléments encore cachés sur `contact.html` (1280 px) lors d'un contrôle en ligne : **cause inconnue**, non reproduit sur 3 essais ciblés (0 élément caché, y compris en défilement rapide).
 - `ERR_INSUFFICIENT_RESOURCES` vu une fois dans Chrome : **cause inconnue**, non reproduit (machine avec de nombreux processus Chrome, connexion à 90–325 Ko/s).
 
 ## Vercel
