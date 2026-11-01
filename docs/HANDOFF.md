@@ -3,7 +3,7 @@
 **Dernière mise à jour** : 2026-11-01, par Claude Code (lot 3 : design « moderne et chic » avec animations, puis revue du design).
 
 ## Site en ligne
-https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de commande : le dépôt GitHub reste en retard sur le site tant que le propriétaire n'a pas autorisé le push).
+https://clinique-veterinaire-des-pins.vercel.app. Le dépôt GitHub est à jour : un push sur `main` déclenche le déploiement.
 
 ## Fait et vérifié
 - 4 pages (`index`, `a-propos`, `services`, `contact`), plus `css/style.css` et `js/script.js`. 45 photos Unsplash, listées dans `tools/images.txt`.
@@ -18,15 +18,16 @@ https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de c
 - Chatbot « Sylva » : **prouvé en production le 2026-11-01** : réponse juste sur les horaires et le tarif, renvoi vers le 05 58 00 12 34 pour une urgence, refus du hors sujet.
 - `npm test` : **69/69**, avec une garde de comptage (minimum 50). 7 tests couvrent les exigences du sujet (PDF).
 - `npm run validate` (html-validate 8.24.1) : aucune erreur sur les 4 pages.
+- Validation W3C officielle (validator.w3.org/nu), site en ligne, le 2026-11-01 : 0 erreur et 0 avertissement sur les 4 pages.
+- **Guide pour développeurs juniors** : `docs/guide-developpeurs-juniors.pdf` (29 pages, dont le chapitre 11 sur HTTPS). Ses extraits de code ont été copiés du vrai code à sa génération : le régénérer ou le corriger si le code change.
 - Contrôle négatif : retirer la vérification du consentement dans `api/contact.js` fait échouer uniquement le test « refuse chaque champ invalide » ; restauration vérifiée par hash.
 - Parcours navigateur (Chrome, serveur local, Resend simulé), 8 scénarios, 0 erreur JavaScript : formulaire vide, e-mail sans domaine, échec serveur sans faux succès, double clic, réseau coupé, statut à l'heure de Paris, chatbot au clavier, filtres et carrousel.
 - Aucun débordement horizontal à 375 et 1280 px.
 - Revue de sécurité : aucun défaut critique ou élevé ; le défaut moyen et les défauts faibles ont été corrigés (limite par bloc IPv6, serveur local limité à `127.0.0.1` et refus des fichiers cachés, taille du corps, Content-Type, adresse unique dans `reply_to`, champ piège renommé).
 
 ## À faire
-1. **Pousser sur GitHub** : en attente de l'accord du propriétaire (le dépôt est en retard sur le site).
-2. **Validation W3C officielle** (validator.w3.org) : pas lancée.
-3. **Présentation orale de 7 minutes** : à préparer.
+1. **Présentation orale de 7 minutes** : à préparer.
+2. **Avis du propriétaire sur le design** et sur un éventuel son de bannière (bouton activé par le visiteur recommandé) : sans réponse à ce jour. Le site n'a jamais eu de son.
 
 ## Limite connue
 Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et l'expéditeur affiché est `onboarding@resend.dev`. C'est suffisant pour ce projet.
@@ -41,7 +42,7 @@ Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et 
 Projet `clinique-veterinaire-des-pins`, équipe `hbdmimi-s-projects`, relié au dépôt GitHub : un `git push` sur `main` déclenche un déploiement. Les conditions de Resend du Marketplace sont acceptées au niveau de l'équipe, sans ressource créée ni facturation. Variables de production : `GEMINI_API_KEY`, `RESEND_API_KEY`, `CONTACT_DESTINATAIRE`. `CONTACT_DESTINATAIRE` est configurée en production et en développement.
 
 ## Prochaine action
-Pousser sur GitHub avec l'accord du propriétaire.
+Préparer la présentation orale : choix de l'entreprise et décisions de conception.
 
 ## Dettes connues
 | Id | Problème | Impact | Raison du report | Déclencheur | Statut |

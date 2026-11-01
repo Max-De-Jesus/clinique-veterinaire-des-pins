@@ -27,6 +27,12 @@ Le projet répond au sujet « Projet 1 — Création d'un site web d'entreprise 
 | **Bonus 2 — Chatbot** | Bulle « Sylva » en bas à droite → `fetch('/api/chat')` → fonction Vercel `api/chat.js` → Gemini. **La clé n'est jamais envoyée au navigateur.** |
 | Images libres de droits | 45 photos Unsplash, listées dans `tools/images.txt` |
 
+## Documentation
+
+Site en ligne : https://clinique-veterinaire-des-pins.vercel.app
+
+Pour comprendre le fonctionnement du site et la façon dont HTTPS a été obtenu, lisez le [guide pour développeurs juniors](docs/guide-developpeurs-juniors.pdf).
+
 ## Lancer en local
 
 ```bash
