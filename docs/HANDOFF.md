@@ -1,13 +1,14 @@
 # Passation — état du projet
 
-**Dernière mise à jour** : 2026-11-01, par Claude Code (lot 2 : refonte du design, envoi du formulaire, HTTPS).
+**Dernière mise à jour** : 2026-11-01, par Claude Code (lot 3 : design « moderne et chic » avec animations).
 
 ## Site en ligne
 https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de commande : le dépôt GitHub reste en retard sur le site tant que le propriétaire n'a pas autorisé le push).
 
 ## Fait et vérifié
 - 4 pages (`index`, `a-propos`, `services`, `contact`), plus `css/style.css` et `js/script.js`. 45 photos Unsplash, listées dans `tools/images.txt`.
-- **Design « carnet naturaliste »** : fond papier, vert pin, un seul accent (la résine), titres Newsreader, texte Instrument Sans, filets fins, mises en page asymétriques. La direction a été choisie par défaut, car la question posée au propriétaire est revenue sans réponse : à confirmer.
+- **Design « moderne et chic »**, demandé par le propriétaire le 2026-11-01 à la place du « carnet naturaliste » : vert nuit, ivoire, un seul accent or, titres Instrument Serif, texte Manrope, coins arrondis, hero plein écran.
+- **Animations** : titres révélés mot à mot, zoom lent des photos, bandeau défilant, parallaxe (limitée à 40 px, ordinateur seulement), barre de progression, en-tête en verre qui se réduit, apparitions en cascade, levée des cartes, reflet des boutons. Toutes sont désactivées si le visiteur demande moins d'animations (mesuré).
 - **Formulaire de contact** : `POST /api/contact` valide puis envoie via Resend (ADR 0002). **Prouvé en production le 2026-11-01** : deux messages (appel direct de l'API et vrai formulaire dans Chrome, CSP active) retrouvés dans la boîte Gmail destinataire, en boîte de réception, avec tous les champs.
 - **HTTPS** : vérifié en ligne. HTTP redirige en 308 vers HTTPS ; en-tête HSTS actif ; 0 requête HTTP sur les 4 pages, à 1280 et 375 px.
 - **Contrôle en ligne** (Chrome, 4 pages, 2 largeurs) : console sans erreur avec la CSP active, aucune image cassée, polices, icônes et carte chargées, aucun débordement.
@@ -23,9 +24,8 @@ https://clinique-veterinaire-des-pins.vercel.app (déployé depuis la ligne de c
 
 ## À faire
 1. **Pousser sur GitHub** : en attente de l'accord du propriétaire (le dépôt est en retard sur le site).
-2. **Confirmer la direction du design** (« carnet naturaliste », choisie par défaut).
-3. **Validation W3C officielle** (validator.w3.org) : pas lancée.
-4. **Présentation orale de 7 minutes** : à préparer.
+2. **Validation W3C officielle** (validator.w3.org) : pas lancée.
+3. **Présentation orale de 7 minutes** : à préparer.
 
 ## Limite connue
 Sans domaine vérifié, Resend n'envoie qu'à l'adresse de son propre compte et l'expéditeur affiché est `onboarding@resend.dev`. C'est suffisant pour ce projet.

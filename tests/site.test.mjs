@@ -167,7 +167,7 @@ test('sujet : accueil avec nom, slogan, résumé des services et appel à l\'act
   assert.match(html, /<h1[^>]*>Clinique Vétérinaire des Pins<\/h1>/);
   assert.match(html, /Soigner avec science, accueillir avec cœur/);
   assert.match(html, /class="card carte-service/);
-  assert.match(html, /class="btn btn-resine" href="contact\.html#formulaire"/);
+  assert.match(html, /class="btn btn-or" href="contact\.html#formulaire"/);
 });
 
 test('sujet : à propos présente l\'histoire, les valeurs et l\'équipe', async () => {

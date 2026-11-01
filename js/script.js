@@ -3,7 +3,7 @@
    Améliore l'expérience utilisateur (bonus 1) et gère le chatbot (bonus 2).
    Sommaire :
      1. Initialisation
-     2. Navigation (barre réduite, menu mobile, retour en haut)
+     2. Navigation et animations de page (barre réduite, progression, titres, parallaxe)
      3. Apparition des éléments au défilement
      4. Compteurs animés
      5. Visionneuse de la galerie
@@ -21,10 +21,14 @@
 document.documentElement.classList.add('js');
 
 const reduireAnimations = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const LARGEUR_PARALLAXE = '(min-width: 992px)'; // pas de parallaxe sur téléphone ni tablette
+const DECALAGE_MAX_PX = 40; // une photo ne s'écarte jamais trop de sa place
 
 document.addEventListener('DOMContentLoaded', () => {
   initialiserNavigation();
   initialiserCarrousel();
+  initialiserTitresAnimes();
+  initialiserProgressionEtParallaxe();
   initialiserApparitions();
   initialiserCompteurs();
   initialiserGalerie();
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initialiserNavigation() {
   const barre = document.querySelector('.navbar-pins');
+  const entete = document.querySelector('.entete-site');
   const boutonHaut = document.querySelector('.retour-haut');
   const menu = document.getElementById('menuPrincipal');
 
@@ -45,6 +50,7 @@ function initialiserNavigation() {
   const majSelonDefilement = () => {
     const defile = window.scrollY > 80;
     if (barre) barre.classList.toggle('navbar-reduite', defile);
+    if (entete) entete.classList.toggle('est-reduite', defile);
     if (boutonHaut) boutonHaut.classList.toggle('visible', window.scrollY > 600);
   };
   window.addEventListener('scroll', majSelonDefilement, { passive: true });
@@ -73,6 +79,63 @@ function initialiserNavigation() {
 function initialiserCarrousel() {
   const carrousel = document.getElementById('carrouselAccueil');
   if (carrousel && reduireAnimations) carrousel.removeAttribute('data-bs-ride');
+}
+
+// Découpe les grands titres en mots pour les révéler l'un après l'autre.
+// Le texte reste du vrai texte : lecteurs d'écran et moteurs de recherche le lisent normalement.
+function initialiserTitresAnimes() {
+  if (reduireAnimations) return;
+
+  document.querySelectorAll('.titre-anime').forEach((titre) => {
+    const mots = titre.textContent.split(' ');
+    titre.textContent = '';
+    mots.forEach((mot, rang) => {
+      const cadre = document.createElement('span');
+      const interieur = document.createElement('span');
+      cadre.className = 'mot';
+      interieur.className = 'mot-interieur';
+      interieur.textContent = mot;
+      interieur.style.setProperty('--rang', String(rang));
+      cadre.appendChild(interieur);
+      titre.append(cadre, rang < mots.length - 1 ? ' ' : '');
+    });
+  });
+}
+
+// Barre de progression de la lecture et parallaxe des photos.
+// Un seul calcul par image affichée (requestAnimationFrame) pour rester fluide.
+function initialiserProgressionEtParallaxe() {
+  const barre = document.createElement('div');
+  barre.className = 'barre-progression';
+  document.body.appendChild(barre);
+
+  const photos = reduireAnimations || !window.matchMedia(LARGEUR_PARALLAXE).matches
+    ? []
+    : [...document.querySelectorAll('[data-parallaxe]')];
+  let calculPrevu = false;
+
+  const mettreAJour = () => {
+    calculPrevu = false;
+    const longueur = document.documentElement.scrollHeight - window.innerHeight;
+    barre.style.setProperty('--progression', String(longueur > 0 ? window.scrollY / longueur : 0));
+
+    photos.forEach((photo) => {
+      const cadre = photo.getBoundingClientRect();
+      const ecartAuCentre = cadre.top + cadre.height / 2 - window.innerHeight / 2;
+      const decalage = Math.max(-DECALAGE_MAX_PX, Math.min(DECALAGE_MAX_PX, ecartAuCentre * Number(photo.dataset.parallaxe)));
+      photo.style.setProperty('--decalage', `${decalage.toFixed(1)}px`);
+    });
+  };
+
+  const demanderCalcul = () => {
+    if (calculPrevu) return;
+    calculPrevu = true;
+    requestAnimationFrame(mettreAJour);
+  };
+
+  window.addEventListener('scroll', demanderCalcul, { passive: true });
+  window.addEventListener('resize', demanderCalcul, { passive: true });
+  mettreAJour();
 }
 
 /* 3. Apparition au défilement --------------------------------------------- */
@@ -201,7 +264,12 @@ function initialiserFiltres() {
       cartes.forEach((carte) => {
         const afficher = filtre === 'tous' || carte.dataset.categorie === filtre;
         carte.classList.toggle('d-none', !afficher);
-        if (afficher) carte.classList.add('visible');
+        carte.classList.remove('entree-filtre');
+        if (afficher) {
+          carte.classList.add('visible');
+          void carte.offsetWidth; // relance l'animation d'entrée à chaque filtre
+          carte.classList.add('entree-filtre');
+        }
       });
     });
   });
@@ -470,7 +538,7 @@ function construireChatbot() {
       <form class="chatbot-formulaire">
         <label class="visually-hidden" for="chatbotChamp">Votre question</label>
         <input class="form-control" id="chatbotChamp" type="text" autocomplete="off" maxlength="${CHATBOT.longueur_max}" placeholder="Écrivez votre question…" required>
-        <button class="btn btn-resine" type="submit" aria-label="Envoyer"><i class="bi bi-send-fill" aria-hidden="true"></i></button>
+        <button class="btn btn-or" type="submit" aria-label="Envoyer"><i class="bi bi-send-fill" aria-hidden="true"></i></button>
       </form>
       <p class="chatbot-mention">Sylva est une IA : elle ne remplace pas un avis vétérinaire. Urgence : 05 58 00 12 34.</p>
     </section>`;

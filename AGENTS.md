@@ -17,7 +17,7 @@ Le sujet complet est dans `Projet 1.pdf` (non versionné). Le propriétaire veut
 ## Conventions
 - Langue : français, pour l'interface, les commentaires, les noms de classes CSS (`carte-service`, `bandeau-page`…) et les noms de fonctions JS.
 - Les couleurs et les polices passent par les variables `:root` de `style.css`.
-- Direction visuelle « carnet naturaliste » : fond papier, titres Newsreader, texte Instrument Sans, un seul accent (la résine), filets fins plutôt que cartes à ombre, angles nets.
+- Direction visuelle « moderne et chic » : vert nuit, ivoire et un seul accent or ; titres Instrument Serif, texte Manrope ; coins arrondis ; animations désactivées si le visiteur demande moins de mouvement.
 - Toute nouvelle image a un `alt` descriptif, des attributs `width`/`height` égaux à ses dimensions réelles (vérifié par un test) et `loading="lazy"` (sauf la première du hero).
 - L'en-tête et le pied de page sont dupliqués dans les 4 pages : toute modification doit être reportée dans les 4.
 
