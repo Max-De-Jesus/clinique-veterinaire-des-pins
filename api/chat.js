@@ -6,7 +6,7 @@ import { CONTEXTE_CLINIQUE } from './_contexte.js';
 import { json, adresseIP, creerLimiteur } from './_commun.js';
 
 const MODELE_PAR_DEFAUT = 'gemini-2.5-flash';
-const MODELE_SECOURS_PAR_DEFAUT = 'gemini-2.5-flash-lite';
+const MODELE_SECOURS_PAR_DEFAUT = 'gemini-3.1-flash-lite';
 const STATUTS_SURCHARGE = [429, 503]; // Gemini saturé ou quota atteint : un autre modèle peut répondre
 const MESSAGES_MAX = 12;           // nombre de messages d'historique acceptés
 const LONGUEUR_MESSAGE_MAX = 500;  // caractères par message

@@ -22,7 +22,7 @@ Le sujet impose HTML et CSS, avec Bootstrap 5 encouragé. Le CSS doit être dans
 
 ## Amendement du 2026-11-01 : modèle de secours
 
-Les journaux de production ont montré des échecs réels : Gemini répond parfois 503 (« high demand ») ou 429 (quota), soit 4 appels sur 11 lors d'une mesure. Si le modèle principal répond 503 ou 429, la fonction réessaie **une seule fois** sur un modèle de secours (`gemini-2.5-flash-lite`, modifiable par `GEMINI_MODEL_SECOURS`). Les autres erreurs, comme une clé refusée, ne déclenchent aucun nouvel essai. Si les deux modèles échouent, le visiteur voit le message d'indisponibilité habituel.
+Les journaux de production ont montré des échecs réels : Gemini répond parfois 503 (« high demand ») ou 429 (quota), soit 4 appels sur 11 lors d'une mesure. L'offre gratuite limite aussi à 5 requêtes par minute et par modèle. Si le modèle principal répond 503 ou 429, la fonction réessaie **une seule fois** sur un modèle de secours (`gemini-3.1-flash-lite`, modifiable par `GEMINI_MODEL_SECOURS`). Ce nom a été choisi après un appel réel : `gemini-2.5-flash-lite`, essayé d'abord, répondait 404 en production malgré sa présence dans la liste des modèles. Les autres erreurs, comme une clé refusée, ne déclenchent aucun nouvel essai. Si les deux modèles échouent, le visiteur voit le message d'indisponibilité habituel.
 
 ## Alternatives écartées
 
